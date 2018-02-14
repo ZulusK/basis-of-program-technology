@@ -1,12 +1,10 @@
 package lab1;
 
-import jdk.jshell.spi.ExecutionControl;
-
-public abstract class Matrix<K extends Number> {
-    private K[][] _data;
+public class Matrix {
+    private double[][] _data;
     private double _determinant;
-    private boolean isActualDeterminant;
-
+    private boolean _isActualDeterminant;
+    private double _doubleCompareDiff = 1e-6;
 
     /**
      * create new empty matrix [rows][columns]
@@ -20,8 +18,8 @@ public abstract class Matrix<K extends Number> {
         } else if (columns <= 0) {
             throw new IllegalArgumentException(String.format("Argument 'columns' should be positive integer, received %d", columns));
         } else {
-            this._data = (K[][]) new Object[rows][columns];
-            this.isActualDeterminant = false;
+            this._data = new double[rows][columns];
+            this._isActualDeterminant = false;
             this._determinant = 0;
         }
     }
@@ -33,15 +31,11 @@ public abstract class Matrix<K extends Number> {
      * @param columns number of columns in matrix
      * @param filler  - value to fill matrix
      */
-    public Matrix(int rows, int columns, K filler) {
+    public Matrix(int rows, int columns, double filler) {
         this(rows, columns);
-        if (filler == null) {
-            throw new IllegalArgumentException("Argument 'filler' should be non null value");
-        } else {
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < columns; j++) {
-                    this._data[i][j] = filler;
-                }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                this._data[i][j] = filler;
             }
         }
     }
@@ -51,15 +45,9 @@ public abstract class Matrix<K extends Number> {
      *
      * @param array - base array
      */
-    public Matrix(K[][] array) {
+    public Matrix(double[][] array) {
         this(array.length, array[0].length);
-        int rows = array.length;
-        int columns = array[0].length;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                this._data[i][j] = array[i][j];
-            }
-        }
+        this.copyArray(array, _data);
     }
 
     /**
@@ -86,7 +74,22 @@ public abstract class Matrix<K extends Number> {
      * @param B matrix for sum
      * @return result of sum A+B
      */
-    public abstract Matrix add(Matrix B);
+    public Matrix add(Matrix B) {
+        if (B.getColumns() != this.getColumns()) {
+            throw new IllegalArgumentException("Number of columns in matrix not equal this columns count");
+        } else if (B.getRows() != this.getRows()) {
+            throw new IllegalArgumentException("Number of rows in matrix not equal this columns count");
+        } else {
+            this._isActualDeterminant = false;
+            double[][] data = new double[this.getRows()][this.getColumns()];
+            for (int i = 0; i < this.getRows(); i++) {
+                for (int j = 0; j < this.getColumns(); j++) {
+                    data[i][j] = this.get(i, j) + B.get(i, j);
+                }
+            }
+            return new Matrix(data);
+        }
+    }
 
     /**
      * Multiply this matrix by the matrix B
@@ -94,7 +97,19 @@ public abstract class Matrix<K extends Number> {
      * @param B matrix for multiplication
      * @return result of  A*B
      */
-    public abstract Matrix multiply(Matrix B);
+    public Matrix multiply(Matrix B) {
+        throw new UnsupportedOperationException("");
+    }
+
+
+    /**
+     * check, is matrix is square
+     *
+     * @return true, if matrix is square
+     */
+    public boolean isSquare() {
+        return this.getRows() == this.getColumns();
+    }
 
     /**
      * Multiply this matrix by the scalar value K
@@ -102,19 +117,96 @@ public abstract class Matrix<K extends Number> {
      * @param K scalar value for multiplication
      * @return result of  A*K
      */
-    public abstract Matrix multiply(K K);
+    public Matrix multiply(double K) {
+        this._isActualDeterminant = false;
+        double[][] data = new double[this.getRows()][this.getColumns()];
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getColumns(); j++) {
+                data[i][j] = this.get(i, j) * K;
+            }
+        }
+        return new Matrix(data);
+    }
 
     /**
-     * calculate determinant of submatrix
+     * calculate determinant of submatrix 2x2
      *
-     * @param r0 start row number
-     * @param r1 end row number
-     * @param c0 start column  number
-     * @param c1 end column number
-     * @return determinant of submatrix
+     * @param r start row
+     * @param c start cell
+     * @return determinant of submatrix 2x2
      */
-    private double determinnant(int r0, int r1, int c0, int c1) {
-        throw new UnsupportedOperationException("");
+    private double determinant2x2(int r, int c) {
+        return _data[r][c] * _data[r + 1][c + 1] - _data[r + 1][c] * _data[r][c + 1];
+    }
+
+    private void copyArray(double[][] src, double[][] dest) {
+        int rows = src.length;
+        int columns = src[0].length;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                dest[i][j] = src[i][j];
+            }
+        }
+    }
+
+    /**
+     * deduct one row from other
+     *
+     * @param src         source matrix
+     * @param rowFrom     number of source row
+     * @param rowWhat     number of subtracted row
+     * @param startColumn number of start row
+     * @param k           coefficient of from-k*what
+     */
+    private void deductRow(double[][] src, int rowFrom, int rowWhat, int startColumn, double k) {
+        for (int i = startColumn; i < this.getColumns(); i++) {
+            src[rowFrom][i] -= src[rowWhat][i];
+        }
+    }
+
+    private double triangulate(double[][] src) {
+        int bottom = this.getRows() - 1;
+        int left = this.getRows() - 1;
+        double lambda = 1;
+
+        for (int currCol = 0; currCol < left; currCol++) {
+            for (int currRow = 0; currRow < bottom; currRow++) {
+                for (int destRow = currRow + 1; destRow < bottom; destRow++) {
+                    // check is value in dest cell !=0
+                    if (Math.abs(src[currRow][currCol]) < _doubleCompareDiff) {
+                        return 0;
+                    } else {
+                        double k = -src[destRow][currCol] / src[currRow][currCol];
+                        deductRow(src, destRow, currRow, currCol, k);
+                    }
+                }
+            }
+        }
+        return lambda;
+    }
+
+    private double multiplyDiagonal(double[][] src) {
+        double result = 1;
+        for (int i = 0; i < this.getRows(); i++) {
+            result *= src[i][i];
+        }
+        return result;
+    }
+
+    /**
+     * calculate determinant of full matrix
+     *
+     * @return determinant of matrix NxN
+     */
+    private double determinantNxN() {
+        double[][] dataTriangulated = new double[this.getRows()][this.getColumns()];
+        copyArray(this._data, dataTriangulated);
+        double lambda = this.triangulate(dataTriangulated);
+        if (Math.abs(lambda) < _doubleCompareDiff) {
+            return 0;
+        } else {
+            return lambda * multiplyDiagonal(dataTriangulated);
+        }
     }
 
     /**
@@ -123,7 +215,19 @@ public abstract class Matrix<K extends Number> {
      * @return scalar value -determinant of this matrix
      */
     public double determinant() {
-        throw new UnsupportedOperationException("");
+        if (!isSquare()) {
+            throw new IllegalArgumentException("Matrix is not square");
+        } else if (!this._isActualDeterminant) {
+            if (this.getColumns() == 2) {
+                // if matrix is 2x2
+                this._determinant = determinant2x2(0, 0);
+            } else {
+                // if matrix is NxN
+                this._determinant = this.determinantNxN();
+            }
+            this._isActualDeterminant = true;
+        }
+        return this._determinant;
     }
 
     /**
@@ -133,11 +237,11 @@ public abstract class Matrix<K extends Number> {
      * @param column column number
      * @return value from cell (R,C)
      */
-    public K get(int row, int column) {
-        if (row < 0 || row > this.getRows()) {
-            throw new ArrayIndexOutOfBoundsException(String.format("Param 'row'(%d) is out of matrix sizes", row));
-        } else if (column < 0 || column > this.getColumns()) {
-            throw new ArrayIndexOutOfBoundsException(String.format("Param 'column'(%d) is out of matrix sizes", column));
+    public double get(int row, int column) {
+        if (row < 0 || row >= this.getRows()) {
+            throw new IllegalArgumentException(String.format("Param 'row'(%d) is out of matrix sizes", row));
+        } else if (column < 0 || column >= this.getColumns()) {
+            throw new IllegalArgumentException(String.format("Param 'column'(%d) is out of matrix sizes", column));
         } else {
             return this._data[row][column];
         }
@@ -151,15 +255,14 @@ public abstract class Matrix<K extends Number> {
      * @param value  value for replacement
      * @return old value from cell [row,column]
      */
-    public K set(int row, int column, K value) {
-        if (row < 0 || row > this.getRows()) {
-            throw new ArrayIndexOutOfBoundsException(String.format("Param 'row'(%d) is out of matrix sizes", row));
-        } else if (column < 0 || column > this.getColumns()) {
-            throw new ArrayIndexOutOfBoundsException(String.format("Param 'column'(%d) is out of matrix sizes", column));
-        } else if (value == null) {
-            throw new IllegalArgumentException("Param value must be non null value");
+    public double set(int row, int column, double value) {
+        if (row < 0 || row >= this.getRows()) {
+            throw new IllegalArgumentException(String.format("Param 'row'(%d) is out of matrix sizes", row));
+        } else if (column < 0 || column >= this.getColumns()) {
+            throw new IllegalArgumentException(String.format("Param 'column'(%d) is out of matrix sizes", column));
         } else {
-            K old = this._data[row][column];
+            double old = this._data[row][column];
+            this._isActualDeterminant = false;
             this._data[row][column] = value;
             return old;
         }
