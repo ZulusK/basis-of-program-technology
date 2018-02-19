@@ -6,10 +6,10 @@ The repository stores the source code of laboratory works on `The basics of prog
 ### Lab1
 - Create a class to work with matrices, which is a wrapper of two-dimensionalth array of real numbers.
 - Describe in class the methods needed for in-data realization, data output, Equals, toString methods:
--- Sum of 2 matrixes
--- Multiplication of matrix and real number
--- Triangularization of matrix
--- Determinant of matrix
+	1. Sum of 2 matrixes
+	2. Multiplication of matrix and real number
+	3. Triangularization of matrix
+	4. Determinant of matrix
 - With methods to organize validation of input data in terms of correction-performance of operations on matrices / vectors. 
 - In case of incorrectness,generate an exclusive situation with the corresponding message
 - Write modular tests to test the operations of constructors, methods of matrix
