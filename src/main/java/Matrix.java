@@ -11,7 +11,7 @@ public class Matrix {
      *
      * @param rows    number of rows in matrix
      * @param columns number of columns in matrix
-     */
+     **/
     public Matrix(int rows, int columns) {
         if (rows <= 0) {
             throw new IllegalArgumentException(String.format("Argument 'rows' should be positive integer, received %d", rows));
@@ -240,16 +240,16 @@ public class Matrix {
             throw new IllegalArgumentException("Matrix is not square");
         } else if (!this._isActualDeterminant) {
             switch (this.getColumns()) {
-                case 1:
-                    this._determinant = this.get(0, 0);
-                    break;
-                case 2:
-                    this._determinant = determinant2x2(0, 0);
-                    break;
-                default:
-                    // if matrix is NxN
-                    this._determinant = this.determinantNxN();
-                    break;
+            case 1:
+                this._determinant = this.get(0, 0);
+                break;
+            case 2:
+                this._determinant = determinant2x2(0, 0);
+                break;
+            default:
+                // if matrix is NxN
+                this._determinant = this.determinantNxN();
+                break;
             }
             this._isActualDeterminant = true;
         }
