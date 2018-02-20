@@ -1,7 +1,10 @@
 # The basis of program technologies
 The repository stores the source code of laboratory works of `The basics of programming technologies.`    
 > Teacher: Khomenko Elena Anatolyevna KPI, FAM 2018    
-> Student: Kazimirov Danil, KP-61
+> Student: Kazimirov Danil, group KP-61
+### Technologies
+* Java
+* Maven
 
 ### Lab1
 - Create a class to work with matrices, which is a wrapper of two-dimensionalth array of real numbers.
