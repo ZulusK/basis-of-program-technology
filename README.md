@@ -1,7 +1,7 @@
 # The basis of program technologies
 The repository stores the source code of laboratory works on `The basics of programming technologies.`    
 > Teacher: Khomenko Elena Anatolyevna KPI, FPM 2018    
-> Completed: Kazimirov Danil, KP-61
+> Student: Kazimirov Danil, KP-61
 
 ### Lab1
 - Create a class to work with matrices, which is a wrapper of two-dimensionalth array of real numbers.
