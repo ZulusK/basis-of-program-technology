@@ -1,6 +1,6 @@
 # The basis of program technologies
-The repository stores the source code of laboratory works on `The basics of programming technologies.`    
-> Teacher: Khomenko Elena Anatolyevna KPI, FPM 2018    
+The repository stores the source code of laboratory works of `The basics of programming technologies.`    
+> Teacher: Khomenko Elena Anatolyevna KPI, FAM 2018    
 > Student: Kazimirov Danil, KP-61
 
 ### Lab1
