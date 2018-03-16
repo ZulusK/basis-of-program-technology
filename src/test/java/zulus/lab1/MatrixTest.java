@@ -1,4 +1,7 @@
+package zulus.lab1;
+
 import org.junit.jupiter.api.Test;
+import zulus.lab1.Matrix;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -82,7 +85,7 @@ public class MatrixTest {
         Matrix m = new Matrix(10, 10, filler);
         assertEquals(m.get(0, 0), filler, delta, "Values in cells are equal with filler");
         assertEquals(m.get(9, 9), filler, delta, "Values in cells are equal with filler");
-        assertEquals(m.get(0, 0), filler, delta, "Matrix doesn't change value in cell after get");
+        assertEquals(m.get(0, 0), filler, delta, "zulus.lab1.Matrix doesn't change value in cell after get");
     }
 
     @Test
@@ -91,16 +94,16 @@ public class MatrixTest {
         Matrix m = new Matrix(10, 10, filler);
         assertThrows(IllegalArgumentException.class, () -> {
             m.get(-1, 0);
-        }, "Matrix not check negative row");
+        }, "zulus.lab1.Matrix not check negative row");
         assertThrows(IllegalArgumentException.class, () -> {
             m.get(0, -1);
-        }, "Matrix not check negative column");
+        }, "zulus.lab1.Matrix not check negative column");
         assertThrows(IllegalArgumentException.class, () -> {
             m.get(10, 0);
-        }, "Matrix not check row > size");
+        }, "zulus.lab1.Matrix not check row > size");
         assertThrows(IllegalArgumentException.class, () -> {
             m.get(0, 10);
-        }, "Matrix not check negative columns > size");
+        }, "zulus.lab1.Matrix not check negative columns > size");
     }
 
     @Test
@@ -109,16 +112,16 @@ public class MatrixTest {
         Matrix m = new Matrix(10, 10, filler);
         assertThrows(IllegalArgumentException.class, () -> {
             m.set(-1, 0, 0);
-        }, "Matrix not check negative row");
+        }, "zulus.lab1.Matrix not check negative row");
         assertThrows(IllegalArgumentException.class, () -> {
             m.set(0, -1, 0);
-        }, "Matrix not check negative column");
+        }, "zulus.lab1.Matrix not check negative column");
         assertThrows(IllegalArgumentException.class, () -> {
             m.set(10, 0, 0);
-        }, "Matrix not check row > size");
+        }, "zulus.lab1.Matrix not check row > size");
         assertThrows(IllegalArgumentException.class, () -> {
             m.set(0, 10, 0);
-        }, "Matrix not check negative columns > size");
+        }, "zulus.lab1.Matrix not check negative columns > size");
     }
 
     @Test
@@ -126,9 +129,9 @@ public class MatrixTest {
         double filler = 10;
         double newValue = 1;
         Matrix m = new Matrix(10, 10, filler);
-        assertEquals(m.set(0, 0, newValue), filler, delta, "Matrix does not return old value");
-        assertEquals(m.set(9, 9, newValue), filler, delta, "Matrix does not return old value");
-        assertEquals(m.get(0, 0), newValue, delta, "Matrix doesn't change value in cell after set");
+        assertEquals(m.set(0, 0, newValue), filler, delta, "zulus.lab1.Matrix does not return old value");
+        assertEquals(m.set(9, 9, newValue), filler, delta, "zulus.lab1.Matrix does not return old value");
+        assertEquals(m.get(0, 0), newValue, delta, "zulus.lab1.Matrix doesn't change value in cell after set");
     }
 
     @Test
