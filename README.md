@@ -1,7 +1,7 @@
 # The basis of program technologies
+[![Build Status][travis-master]](https://travis-ci.org/ZulusK/basis-of-program-technology)
+[![codecov][codecov-master]](https://codecov.io/gh/ZulusK/basis-of-program-technology)
 ![badge-jdk-8]
-[![Build Status][ci-travis]](https://travis-ci.org/ZulusK/basis-of-program-technology)
-[![codecov][ci-codecov]](https://codecov.io/gh/ZulusK/basis-of-program-technology)
 ![junit5-gradle-consumer][badge-junit-jupiter]
 ![badge-tool-maven]
 
@@ -37,6 +37,7 @@ calculations and methods of Equals, toString
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
 [badge-junit-jupiter]: https://img.shields.io/badge/junit-jupiter-green.svg "JUnit Jupiter Engine"
 [badge-jdk-8]: https://img.shields.io/badge/jdk-8-yellow.svg "JDK-8"
 [badge-tool-maven]: https://img.shields.io/badge/tool-maven-0440af.svg "Maven wrapper included"
