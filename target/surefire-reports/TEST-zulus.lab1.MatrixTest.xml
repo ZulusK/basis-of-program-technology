@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="zulus.lab1.MatrixTest" time="0.047" tests="29" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="zulus.lab1.MatrixTest" time="0.049" tests="29" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="9.0.4+11"/>
@@ -64,29 +64,29 @@
   <testcase name="testArrayConstructor_with0columns" classname="zulus.lab1.MatrixTest" time="0"/>
   <testcase name="testArrayConstructor_normal" classname="zulus.lab1.MatrixTest" time="0"/>
   <testcase name="testEquals_null" classname="zulus.lab1.MatrixTest" time="0"/>
-  <testcase name="testMultiply_normalNotSquare" classname="zulus.lab1.MatrixTest" time="0.002"/>
-  <testcase name="testEquals_matrixFromArray" classname="zulus.lab1.MatrixTest" time="0.001"/>
-  <testcase name="testArrayConstructor_nullPointer" classname="zulus.lab1.MatrixTest" time="0.001"/>
+  <testcase name="testMultiply_normalNotSquare" classname="zulus.lab1.MatrixTest" time="0"/>
+  <testcase name="testEquals_matrixFromArray" classname="zulus.lab1.MatrixTest" time="0"/>
+  <testcase name="testArrayConstructor_nullPointer" classname="zulus.lab1.MatrixTest" time="0"/>
   <testcase name="testEquals_differentDelta" classname="zulus.lab1.MatrixTest" time="0"/>
-  <testcase name="testSet_outOfBound" classname="zulus.lab1.MatrixTest" time="0.002"/>
-  <testcase name="testFillerConstructor_normal" classname="zulus.lab1.MatrixTest" time="0.001"/>
+  <testcase name="testSet_outOfBound" classname="zulus.lab1.MatrixTest" time="0"/>
+  <testcase name="testFillerConstructor_normal" classname="zulus.lab1.MatrixTest" time="0"/>
   <testcase name="testDeterminant_1x1" classname="zulus.lab1.MatrixTest" time="0"/>
   <testcase name="testDeterminant_2x2" classname="zulus.lab1.MatrixTest" time="0"/>
   <testcase name="testDeterminant_3x3" classname="zulus.lab1.MatrixTest" time="0"/>
   <testcase name="testDeterminant_4x4" classname="zulus.lab1.MatrixTest" time="0"/>
-  <testcase name="testAdd_invalidSize" classname="zulus.lab1.MatrixTest" time="0.002"/>
-  <testcase name="testDeterminant_notSquare" classname="zulus.lab1.MatrixTest" time="0.001"/>
+  <testcase name="testAdd_invalidSize" classname="zulus.lab1.MatrixTest" time="0"/>
+  <testcase name="testDeterminant_notSquare" classname="zulus.lab1.MatrixTest" time="0"/>
   <testcase name="testTask_2x2" classname="zulus.lab1.MatrixTest" time="0"/>
-  <testcase name="testTask_3x3" classname="zulus.lab1.MatrixTest" time="0.001"/>
-  <testcase name="testGet_normal" classname="zulus.lab1.MatrixTest" time="0.001"/>
-  <testcase name="testMultiply_normalSquare" classname="zulus.lab1.MatrixTest" time="0"/>
-  <testcase name="testIsSquare" classname="zulus.lab1.MatrixTest" time="0"/>
-  <testcase name="testDeterminant_isChangeAfterOperationExecution" classname="zulus.lab1.MatrixTest" time="0"/>
-  <testcase name="testTask_diffDimensions" classname="zulus.lab1.MatrixTest" time="0.002"/>
-  <testcase name="testTask_null" classname="zulus.lab1.MatrixTest" time="0.001"/>
-  <testcase name="testGet_outOfBound" classname="zulus.lab1.MatrixTest" time="0.002"/>
-  <testcase name="testBaseConstructor_invalidSize" classname="zulus.lab1.MatrixTest" time="0"/>
-  <testcase name="testAdd_normal" classname="zulus.lab1.MatrixTest" time="0.001"/>
-  <testcase name="testFillerConstructor_invalidSize" classname="zulus.lab1.MatrixTest" time="0.002"/>
-  <testcase name="testBaseConstructor_normal" classname="zulus.lab1.MatrixTest" time="0.001"/>
+  <testcase name="testTask_3x3" classname="zulus.lab1.MatrixTest" time="0"/>
+  <testcase name="testGet_normal" classname="zulus.lab1.MatrixTest" time="0"/>
+  <testcase name="testMultiply_normalSquare" classname="zulus.lab1.MatrixTest" time="0.002"/>
+  <testcase name="testIsSquare" classname="zulus.lab1.MatrixTest" time="0.001"/>
+  <testcase name="testDeterminant_isChangeAfterOperationExecution" classname="zulus.lab1.MatrixTest" time="0.001"/>
+  <testcase name="testTask_diffDimensions" classname="zulus.lab1.MatrixTest" time="0.004"/>
+  <testcase name="testTask_null" classname="zulus.lab1.MatrixTest" time="0.01"/>
+  <testcase name="testGet_outOfBound" classname="zulus.lab1.MatrixTest" time="0.003"/>
+  <testcase name="testBaseConstructor_invalidSize" classname="zulus.lab1.MatrixTest" time="0.001"/>
+  <testcase name="testAdd_normal" classname="zulus.lab1.MatrixTest" time="0.005"/>
+  <testcase name="testFillerConstructor_invalidSize" classname="zulus.lab1.MatrixTest" time="0.001"/>
+  <testcase name="testBaseConstructor_normal" classname="zulus.lab1.MatrixTest" time="0"/>
 </testsuite>

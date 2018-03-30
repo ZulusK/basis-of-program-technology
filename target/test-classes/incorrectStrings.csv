@@ -1,0 +1,11 @@
+Value, error description
+A}, opening bracket is not exist
+{1, opening bracket is not exist
+{A, closing bracket is not exist
+{1, closing bracket is not exist
+{1234A}, mixin of numbers and letter
+{ABSD1}, mixin of letters and number
+[1233], incorrect brackets
+{}, inner symbols are absent
+{, inner symbols and closing bracket are absent
+}, opening symbols are absent
