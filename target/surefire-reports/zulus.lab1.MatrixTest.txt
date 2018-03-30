@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: zulus.lab1.MatrixTest
 -------------------------------------------------------------------------------
-Tests run: 29, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.049 sec - in zulus.lab1.MatrixTest
+Tests run: 29, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.106 sec - in zulus.lab1.MatrixTest
