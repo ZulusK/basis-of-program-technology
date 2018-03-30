@@ -63,11 +63,7 @@ public abstract class FSM {
             _currentState = nextState(event);
             if (_currentState == State.ERROR) break;
         }
-        if (_currentState == State.Q4) {
-            return true;
-        } else {
-            return false;
-        }
+        return _currentState == State.Q4;
     }
 
     /**
