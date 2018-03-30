@@ -3,10 +3,12 @@ A}, opening bracket is not exist
 {1, opening bracket is not exist
 {A, closing bracket is not exist
 {1, closing bracket is not exist
-{1234A}, mixin of numbers and letter
-{ABSD1}, mixin of letters and number
 [1233], incorrect brackets
 {}, inner symbols are absent
 {, inner symbols and closing bracket are absent
 }, opening symbols are absent
-{asdgh}, letters in low-case
+{{ABC}, two opening brackets
+{ABC}}, two closing brackets
+{12}3, symbols after closing bracket
+{A{}, opening bracket inside
+{}12}, closing bracket inside

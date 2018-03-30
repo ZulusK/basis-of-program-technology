@@ -2,13 +2,9 @@ package zulus.lab2;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.LinkedList;
 import java.util.stream.Stream;
@@ -19,14 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
  * Created by zulus on 30.03.18
  */
 
-public class FSMTest {
+public class SwitchFSMTest {
     private SwitchFSM switchSM;
 
-    public FSMTest() {
+    public SwitchFSMTest() {
         switchSM = new SwitchFSM();
     }
 
-    @ParameterizedTest(name="math digits: scan({0})")
+    @ParameterizedTest(name = "math digits: scan({0})")
     @DisplayName("Should match all strings, that contains '{\\d+}'")
     @MethodSource("matchedDigitsProvider")
     public void match_digit(String candidate) {
@@ -34,25 +30,33 @@ public class FSMTest {
     }
 
 
-    @ParameterizedTest(name="match alpha: scan({0})")
+    @ParameterizedTest(name = "match alpha: scan({0})")
     @DisplayName("Match all strings, that contains '{\\[A-Z]+}'")
     @MethodSource("matchedAlphaProvider")
     public void match_alpha(String candidate) {
         assertTrue(switchSM.scan(candidate), "Should match this string {\\[A-Z]+}");
     }
 
-    @DisplayName("don't match strings")
-    @ParameterizedTest(name="scan({0}), {1}")
+    @DisplayName("don't match strings, incorrect brackets")
+    @ParameterizedTest(name = "scan({0}), {1}")
     @CsvFileSource(resources = "/incorrectStrings.csv", numLinesToSkip = 1)
-    public void doNotMatch(String candidate, String description) {
+    public void doNotMatch_incorrectBrackets(String candidate, String description) {
         assertFalse(switchSM.scan(candidate), description);
     }
 
+    @DisplayName("don't match strings, mixin of letters and digits")
+    @ParameterizedTest(name = "scan({0})")
+    @ArgumentsSource(Provider.class)
+    public void doNotMatch_mixin(String candidate) {
+        assertFalse(switchSM.scan(candidate));
+    }
+
     @Test
-    @DisplayName("Do not match empty string")
+    @DisplayName("don't match empty string")
     public void doNotMatch_emptyString() {
         assertFalse(switchSM.scan(""));
     }
+
 
     @Test
     @DisplayName("Throw error, if receive null pointer")
@@ -87,10 +91,10 @@ public class FSMTest {
         return list.stream();
     }
 
-    static class SMProvider implements ArgumentsProvider {
+    static class Provider implements ArgumentsProvider {
         @Override
         public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
-            return Stream.of("foo", "bar").map(Arguments::of);
+            return Stream.of("{A123455}", "{12345B124}", "{m123}").map(Arguments::of);
         }
     }
 
