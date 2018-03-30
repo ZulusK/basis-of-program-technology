@@ -6,15 +6,19 @@ package zulus.lab2;
 //  \{(\d+|[A-Z]+)\}
 public abstract class FSM {
     protected enum State {
-        Q0, Q1, Q2, Q3, Q4, Q5, ERROR;
+        Q0, Q1, Q2, Q3, Q4, ERROR;
     }
 
     protected enum Event {
         DIGIT("0123456789"), UPPER_LETTER("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), OPEN_BRACKET("{"), CLOSE_BRACKET("}"), ANY("");
-        public final String letters;
+        public final String template;
 
-        Event(String letters) {
-            this.letters = letters;
+        public String getTemplate(){
+            return this.template;
+        }
+
+        Event(String template) {
+            this.template = template;
         }
 
         /**
@@ -24,7 +28,7 @@ public abstract class FSM {
          * @return true, if symbol is part of vocabulary
          */
         public boolean contains(char symbol) {
-            return this.letters.contains(String.valueOf(symbol));
+            return template.contains(String.valueOf(symbol));
         }
     }
 
@@ -62,7 +66,7 @@ public abstract class FSM {
             _currentState = nextState(event);
             if (_currentState == State.ERROR) break;
         }
-        if (_currentState == State.Q5) {
+        if (_currentState == State.Q4) {
             return true;
         } else {
             return false;

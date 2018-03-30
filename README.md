@@ -24,9 +24,9 @@ The repository stores the source code of laboratory works on `The basics of prog
 - Write modular tests to test the operations of constructors, methods of matrix
 calculations and methods of Equals, toString
 ### Lab2
-- Write a program in the programming language Java, which builds a finite automaton for
-recognition of a string given by a regular expression
-- Describe the parametric modular tests and test the program on different sets of input data.
+- Write a program in the programming language Java, which builds a finite automaton for recognition of a string given by a regular expression
+- Describe the parametric modular tests and test the program on different sets of input data.   
+__Regex__: \{(\d+|[A-Z]+)\}
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
