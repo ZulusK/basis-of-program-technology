@@ -13,10 +13,6 @@ public abstract class FSM {
         DIGIT("0123456789"), UPPER_LETTER("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), OPEN_BRACKET("{"), CLOSE_BRACKET("}"), ANY("");
         public final String template;
 
-        public String getTemplate(){
-            return this.template;
-        }
-
         Event(String template) {
             this.template = template;
         }
@@ -60,6 +56,7 @@ public abstract class FSM {
      * @return true, if matched
      */
     public boolean scan(String string) {
+        if(string==null) throw new IllegalArgumentException("Argument string must be non-null value");
         start();
         for (char symbol : string.toCharArray()) {
             Event event = recognizeEvent(symbol);
