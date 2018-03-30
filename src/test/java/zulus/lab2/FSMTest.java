@@ -15,18 +15,23 @@ import static org.junit.jupiter.api.Assertions.*;
  * Created by zulus on 30.03.18
  */
 
-public class StateTableFSMTest {
-    private StateTableFSM SM;
+public class FSMTest {
+    private FSM SMs[];
 
-    public StateTableFSMTest() {
-        SM = new StateTableFSM();
+    public FSMTest() {
+        SMs = new FSM[3];
+        SMs[0] = new SwitchFSM();
+        SMs[1] = new StateTableFSM();
+        SMs[2] = new StateFSM();
     }
 
     @ParameterizedTest(name = "math digits: scan({0})")
     @DisplayName("Should match all strings, that contains '{\\d+}'")
     @MethodSource("matchedDigitsProvider")
     public void match_digit(String candidate) {
-        assertTrue(SM.scan(candidate), "Should match this string {\\d+}");
+        for (FSM currSM : SMs) {
+            assertTrue(currSM.scan(candidate), "Should match this string {\\d+}");
+        }
     }
 
 
@@ -34,34 +39,44 @@ public class StateTableFSMTest {
     @DisplayName("Match all strings, that contains '{\\[A-Z]+}'")
     @MethodSource("matchedAlphaProvider")
     public void match_alpha(String candidate) {
-        assertTrue(SM.scan(candidate), "Should match this string {\\[A-Z]+}");
+        for (FSM currSM : SMs) {
+            assertTrue(currSM.scan(candidate), "Should match this string {\\[A-Z]+}");
+        }
     }
 
     @DisplayName("don't match strings, incorrect brackets")
     @ParameterizedTest(name = "scan({0}), {1}")
     @CsvFileSource(resources = "/incorrectStrings.csv", numLinesToSkip = 1)
     public void doNotMatch_incorrectBrackets(String candidate, String description) {
-        assertFalse(SM.scan(candidate), description);
+        for (FSM currSM : SMs) {
+            assertFalse(currSM.scan(candidate), description);
+        }
     }
 
     @DisplayName("don't match strings, mixin of letters and digits")
     @ParameterizedTest(name = "scan({0})")
     @ArgumentsSource(Provider.class)
     public void doNotMatch_mixin(String candidate) {
-        assertFalse(SM.scan(candidate));
+        for (FSM currSM : SMs) {
+            assertFalse(currSM.scan(candidate));
+        }
     }
 
     @Test
     @DisplayName("don't match empty string")
     public void doNotMatch_emptyString() {
-        assertFalse(SM.scan(""));
+        for (FSM currSM : SMs) {
+            assertFalse(currSM.scan(""));
+        }
     }
 
 
     @Test
     @DisplayName("Throw error, if receive null pointer")
-    public void throwOnNull_null() {
-        assertThrows(IllegalArgumentException.class, () -> SM.scan(null));
+    public void throwOnNull() {
+        for (FSM currSM : SMs) {
+            assertThrows(IllegalArgumentException.class, () -> currSM.scan(null));
+        }
     }
 
     public static Stream<String> matchedDigitsProvider() {
