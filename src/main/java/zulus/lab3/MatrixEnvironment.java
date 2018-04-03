@@ -14,15 +14,18 @@ public class MatrixEnvironment {
         _matrices = new HashMap<>();
     }
 
-    public void add(String name, Matrix matrix) {
-        if (matrix != null) {
-            this._matrices.put(name, matrix);
+    public void create(String name, Matrix matrix) {
+        if (matrix == null) {
+            throw new IllegalArgumentException("Argument matrix is null");
+        } else if (name == null) {
+            throw new IllegalArgumentException("Argument name is null");
         } else {
-            throw new IllegalArgumentException("Argument matrix == null");
+            this._matrices.put(name, matrix);
         }
     }
 
     public Matrix delete(String name) {
+        if (name == null) throw new IllegalArgumentException("Argument name is null");
         Matrix matrix = _matrices.getOrDefault(name, null);
         if (matrix != null) {
             _matrices.remove(name);
@@ -33,5 +36,5 @@ public class MatrixEnvironment {
     public Matrix get(String name) {
         return _matrices.getOrDefault(name, null);
     }
-    public Matrix operation()
+
 }

@@ -12,7 +12,7 @@ public class Analyzer {
     }
 
     public String process(String input) {
-
+        return null;
     }
 
 

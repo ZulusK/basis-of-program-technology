@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="zulus.lab2.StateFSMTest" time="0.227" tests="58" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="java.vm.version" value="9.0.4+11"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-9-oracle/lib"/>
+    <property name="maven.multiModuleProjectDirectory" value="/home/zulus/projects/basisofprogramtechnologies"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="test" value="zulus/lab2/*Test"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/home/zulus/projects/basisofprogramtechnologies"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="java.runtime.version" value="9.0.4+11"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Linux"/>
+    <property name="classworlds.conf" value="/opt/maven/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="maven.conf" value="/opt/maven/conf"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="java.class.version" value="53.0"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="4.13.0-37-generic"/>
+    <property name="library.jansi.path" value="/opt/maven/lib/jansi-native"/>
+    <property name="user.home" value="/home/zulus"/>
+    <property name="user.timezone" value="Europe/Kiev"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="9"/>
+    <property name="user.name" value="zulus"/>
+    <property name="java.class.path" value="/opt/maven/boot/plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="9"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=zulus/lab2/*Test test"/>
+    <property name="java.home" value="/usr/lib/jvm/java-9-oracle"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="9.0.4"/>
+    <property name="securerandom.source" value="file:/dev/./urandom"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="/opt/maven"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase name="doNotMatch_mixin{String}[1]" classname="zulus.lab2.StateFSMTest" time="0.034"/>
+  <testcase name="doNotMatch_mixin{String}[2]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_mixin{String}[3]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="doNotMatch_emptyString" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[1]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[2]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[3]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[4]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[5]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[6]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[7]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[8]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[9]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[10]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[11]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[12]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[13]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[14]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[15]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[16]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="doNotMatch_incorrectBrackets{String, String}[17]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="throwOnNull_null" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[1]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[2]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[3]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[4]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[5]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[6]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[7]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[8]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[9]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[10]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[11]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[12]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[13]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[14]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[15]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[16]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[17]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[18]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[19]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[20]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[21]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[22]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[23]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[24]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_alpha{String}[25]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_alpha{String}[26]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_digit{String}[1]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_digit{String}[2]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_digit{String}[3]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_digit{String}[4]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_digit{String}[5]" classname="zulus.lab2.StateFSMTest" time="0.001"/>
+  <testcase name="match_digit{String}[6]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_digit{String}[7]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_digit{String}[8]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_digit{String}[9]" classname="zulus.lab2.StateFSMTest" time="0"/>
+  <testcase name="match_digit{String}[10]" classname="zulus.lab2.StateFSMTest" time="0"/>
+</testsuite>
