@@ -47,7 +47,7 @@ public class FSMTest {
     @DisplayName("don't match strings, incorrect brackets")
     @ParameterizedTest(name = "scan({0}), {1}")
     @CsvFileSource(resources = "/incorrectStrings.csv", numLinesToSkip = 1)
-    public void doNotMatch_incorrectBrackets(String candidate, String description) {
+    public void doNotMatch_incorrectStrings(String candidate, String description) {
         for (FSM currSM : SMs) {
             assertFalse(currSM.scan(candidate), description);
         }

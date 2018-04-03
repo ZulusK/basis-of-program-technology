@@ -10,5 +10,9 @@ A}, opening bracket is not exist
 {{ABC}, two opening brackets
 {ABC}}, two closing brackets
 {12}3, symbols after closing bracket
+{12}A, symbols after closing bracket
 {A{}, opening bracket inside
 {}12}, closing bracket inside
+{123*},incorrect symbol *
+{ABs}, incorrect lowercase letter
+{s}, incorrect lowercase letter
