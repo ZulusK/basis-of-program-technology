@@ -1,4 +1,4 @@
-package zulus.extra.pi;
+package zulus.extra;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNull;
 import java.math.BigInteger;
 
 import org.junit.Test;
+import zulus.extra.PiGenerator;
 
 public class PiGeneratorTest {
     @Test
