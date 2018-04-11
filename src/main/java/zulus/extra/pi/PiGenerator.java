@@ -15,9 +15,12 @@ public class PiGenerator {
      * @return precision digits of pi in hexadecimal.
      */
     public static int[] computePiInHex(int precision) {
-
-        // TODO
-        return null;
+        if (precision < 0) return null;
+        int[] result=new int[precision];
+        for(int i=0; i<precision;i++){
+            result[i]=piDigit(i+1);
+        }
+        return result;
     }
 
     /**
@@ -34,7 +37,7 @@ public class PiGenerator {
         if (a < 0 || b < 0 || m <= 0) {
             return -1;
         }
-        if (m == 1) {
+        if (m == 1 || a == 0) {
             return 0;
         }
         // using right-to-left binary method
