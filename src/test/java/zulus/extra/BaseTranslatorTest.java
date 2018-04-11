@@ -45,7 +45,8 @@ public class BaseTranslatorTest {
         int[] base4 = { 1, 3, 2 };
         int[] base8 = { 3, 6 };
         int[] base13 = { 6, 1, 2, 10, 12, 7,9 };
-        assertArrayEquals(input, BaseTranslator.convertBase(input, 2, 2, input.length));
+        int[] out=BaseTranslator.convertBase(input, 2, 2, input.length);
+        assertArrayEquals(input, out);
         assertArrayEquals(base4, BaseTranslator.convertBase(input, 2, 4, base4.length));
         assertArrayEquals(base8, BaseTranslator.convertBase(input, 2, 8, base8.length));
         assertArrayEquals(base13, BaseTranslator.convertBase(input, 2, 13, base13.length));

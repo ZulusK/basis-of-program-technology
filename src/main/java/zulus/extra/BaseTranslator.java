@@ -21,7 +21,8 @@ public class BaseTranslator {
      * 2. From RIGHT to LEFT
      * a. x = multiply the digit[i] by baseB and add the carry
      * b. the digit[i] is x % baseA
-     * c. carry = x / baseA 3. output[i] = carry
+     * c. carry = x / baseA
+     * 3. output[i] = carry
      * <p>
      * If digits[i] < 0 or digits[i] >= baseA for any i, return null If baseA <
      * 2, baseB < 2, or precisionB < 1, return null
@@ -36,31 +37,28 @@ public class BaseTranslator {
                                     int precisionB) {
 
         if (digits == null || baseA < 2 || baseB < 2 || precisionB < 1) return null;
-        if(digits.length==0) return new int[0];
-        int extPrescision=precisionB+1;
-        int output[] = new int[extPrescision];
-        double divider=1;
-        for(int i=0; i<digits.length;i++){
-            if (digits[i] >= baseA || digits[i] < 0) return null;
-            divider*=baseA;
-            if(digits[i]==0) continue;
-            double x=digits[i]/divider;
-            for(int j=0; j<extPrescision;j++){
-                double currNum=x*baseB;
-                int carry=(int) currNum;
-                output[j]+=carry;
-                normalize(output,j,baseB);
-                x=currNum-carry;
+        if (digits.length == 0) return new int[0];
+        int[] input=Arrays.copyOfRange(digits,0,digits.length);
+        for(int x:input){
+            if(x<0 || x>=baseA){
+                return null;
             }
+
         }
-        return Arrays.copyOfRange(output,0, precisionB);
-    }
-    private static void normalize(int[] arr,int pos, int base){
-        for(int i=pos; i>0; i--){
-            if(arr[i]>=base){
-                arr[i-1]+=1;
-                arr[i]%=base;
+//        if(baseA==baseB){
+//            return digits;
+//        }
+        int output[] = new int[precisionB];
+        for (int i = 0; i < precisionB; i++) {
+            int carry = 0;
+            for (int j = input.length - 1; j >= 0; j--) {
+                int x = input[j] * baseB + carry;
+                input[j] = x % baseA;
+                carry = x / baseA;
             }
+            output[i] = carry;
         }
+        return output;
     }
+
 }
