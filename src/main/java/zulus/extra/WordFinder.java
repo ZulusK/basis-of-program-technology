@@ -1,14 +1,11 @@
 package zulus.extra;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
-
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class WordFinder {
     private static final int PRIME_NUMBER = 31;
-    private static final int NORMILIZER= Integer.MAX_VALUE;
+    private static final int NORMALIZER = Integer.MAX_VALUE;
+
     /**
      * Given a String (the haystack) and an array of Strings (the needles),
      * return a Map<String, Integer>, where keys in the map correspond to
@@ -24,26 +21,63 @@ public class WordFinder {
     public static Map<String, Integer> findWords(String haystack,
                                                  String[] needles) {
 
-        if (haystack == null || needles == null) return new HashMap<>();;
-        return rabinKarp(haystack, needles);
+        if (haystack == null || needles == null) return new HashMap<>();
+        return KMPSearchMany(haystack.toCharArray(), needles);
 //        return nativeSearch(haystack,needles);
     }
 
-    private static Map<String,Integer> nativeSearch(String haystack, String[] needles){
+    private static Map<String, Integer> nativeSearch(String haystack, String[] needles) {
         HashMap<String, Integer> output = new HashMap<>();
-        for(String needle:needles){
-            int index=haystack.indexOf(needle);
-            if(index>=0) {
+        for (String needle : needles) {
+            int index = haystack.indexOf(needle);
+            if (index >= 0) {
                 output.put(needle, index);
             }
         }
-return output;
+        return output;
     }
 
-    private static Map<String, Integer> rabinKarp(String haystack, String[] needles) {
-        HashMap<String, Integer> output = new HashMap<>();
-        List<Long> hashesNeedles = Arrays.stream(needles).map((needle) -> hash(needle)).collect(Collectors.toList());
+    private static int[] computePrefixFunction(String str) {
+        int[] prefixes = new int[str.length()];
+        int k = 0;
+        for (int i = 1; i < str.length(); i++) {
+            while (k > 0 && str.charAt(k) != str.charAt(i)) {
+                k = prefixes[k - 1];
+            }
+            if (prefixes[k] == prefixes[i]) {
+                k++;
+            }
+            prefixes[i] = k;
+        }
+        return prefixes;
+    }
 
+    private static int KMPSearchOne(char[] haystack, String needle) {
+        int[] prefixFunc = computePrefixFunction(needle);
+        int q = 0;
+        for (int i = 0; i < haystack.length; i++) {
+            while (q > 0 && needle.charAt(q) != haystack[i]) {
+                q = prefixFunc[q - 1];
+            }
+            if (needle.charAt(q) == haystack[i]) {
+                q++;
+            }
+            if (q == needle.length()) {
+                return i - needle.length() + 1;
+            }
+
+        }
+        return -1;
+    }
+
+    private static Map<String, Integer> KMPSearchMany(char[] haystack, String[] needles) {
+        HashMap<String, Integer> output = new HashMap<>();
+        for (String needle : needles) {
+            int index = KMPSearchOne(haystack, needle);
+            if (index >= 0) {
+                output.put(needle, index);
+            }
+        }
         return output;
     }
 
@@ -53,7 +87,9 @@ return output;
         for (char c : str.toCharArray()) {
             powOfPN *= PRIME_NUMBER;
             hash += powOfPN * c;
-            hash%=NORMILIZER;
+            if (hash > NORMALIZER) {
+                hash %= NORMALIZER;
+            }
         }
         return hash;
     }
