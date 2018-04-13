@@ -1,2 +1,8 @@
-/home/zulus/projects/basisofprogramtechnologies/src/test/java/zulus/lab1/MatrixTest.java
-/home/zulus/projects/basisofprogramtechnologies/src/test/java/zulus/lab2/FSMTest.java
+/home/zulus/projects/basis-of-program-technology/src/test/java/zulus/extra/BaseTranslatorTest.java
+/home/zulus/projects/basis-of-program-technology/src/test/java/zulus/extra/PiGeneratorTest.java
+/home/zulus/projects/basis-of-program-technology/src/test/java/zulus/extra/WordFinderTest.java
+/home/zulus/projects/basis-of-program-technology/src/test/java/zulus/extra/BirthDayFinderTest.java
+/home/zulus/projects/basis-of-program-technology/src/test/java/zulus/extra/AlphabetGeneratorTest.java
+/home/zulus/projects/basis-of-program-technology/src/test/java/zulus/lab2/FSMTest.java
+/home/zulus/projects/basis-of-program-technology/src/test/java/zulus/extra/DigitsToStringConverterTest.java
+/home/zulus/projects/basis-of-program-technology/src/test/java/zulus/lab1/MatrixTest.java

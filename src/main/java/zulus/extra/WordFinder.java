@@ -25,7 +25,13 @@ public class WordFinder {
         return KMPSearchMany(haystack.toCharArray(), needles);
 //        return nativeSearch(haystack,needles);
     }
+    public static Integer findWord(String haystack,
+                                                 String needle) {
 
+        if (haystack == null || needle == null) return -1;
+        return KMPSearchOne(haystack.toCharArray(), needle);
+//        return haystack.indexOf(needle);
+    }
     private static Map<String, Integer> nativeSearch(String haystack, String[] needles) {
         HashMap<String, Integer> output = new HashMap<>();
         for (String needle : needles) {

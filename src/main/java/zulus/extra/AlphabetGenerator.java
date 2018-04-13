@@ -2,9 +2,7 @@ package zulus.extra;
 
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class AlphabetGenerator {
     /**
@@ -36,20 +34,17 @@ public class AlphabetGenerator {
                                                    final String[] trainingData) {
 
         if (base <= 0 || trainingData == null) return null;
-        Map<Character, Integer> freq = calculateFrequency(trainingData);
-        List probability = convertFreq2Probability(freq);
-        List cdf = calculateCDF(probability);
-        List lengths = calculateLengths(cdf, base);
+        List lengths = calculateLengths(trainingData, base);
         return generateAlphabet(lengths, base);
 
     }
 
     private static char[] generateAlphabet(final List<Map.Entry<Character, Integer>> lengths, int base) {
-        lengths.sort(Comparator.comparing((Map.Entry<Character,Integer> x)->x.getValue()));
+        lengths.sort(Comparator.comparing((Map.Entry<Character, Integer> x) -> x.getValue()));
         Iterator<Map.Entry<Character, Integer>> iterator = lengths.iterator();
         Map.Entry<Character, Integer> currCharacter = iterator.next();
         char[] alphabet = new char[base];
-        for (int i = 0; i <base ; i++) {
+        for (int i = 0; i < base; i++) {
             if (i >= currCharacter.getValue()) {
                 currCharacter = iterator.next();
             }
@@ -58,20 +53,20 @@ public class AlphabetGenerator {
         return alphabet;
     }
 
-    private static List<Map.Entry<Character, Integer>> calculateLengths(final List<Map.Entry<Character, Double>> cdf, int base) {
-        return cdf
+    private static List<Map.Entry<Character, Integer>> calculateLengths(final String[] trainingData, int base) {
+        return calculateCDF(getProbability(trainingData))
                 .stream()
-                .map((e) -> new AbstractMap.SimpleEntry<>(e.getKey(),(int)(Math.ceil(base*e.getValue()))))
+                .map((e) -> new AbstractMap.SimpleEntry<>(e.getKey(), (int) (Math.ceil(base * e.getValue()))))
                 .collect(Collectors.toList());
     }
 
     private static List<Map.Entry<Character, Double>> calculateCDF(final List<Map.Entry<Character, Double>> pairs) {
         List<Map.Entry<Character, Double>> cdf = new ArrayList<>(pairs.size());
-        pairs.sort(Comparator.comparing(e->e.getKey()));
-        double lastValue=0;
+        pairs.sort(Comparator.comparing(e -> e.getKey()));
+        double lastValue = 0;
         for (int i = 0; i < pairs.size(); i++) {
             cdf.add(Map.entry(pairs.get(i).getKey(), pairs.get(i).getValue() + lastValue));
-            lastValue+=pairs.get(i).getValue();
+            lastValue += pairs.get(i).getValue();
         }
         return cdf;
     }
@@ -80,15 +75,16 @@ public class AlphabetGenerator {
         Map<Character, Integer> freq = new HashMap<>();
         for (String word : words) {
             for (char symbol : word.toCharArray()) {
-                if(Character.isLetter(symbol))
-                freq.put(symbol, freq.getOrDefault(symbol, 0) + 1);
+                if (Character.isLetter(symbol))
+                    freq.put(symbol, freq.getOrDefault(symbol, 0) + 1);
             }
         }
         return freq;
     }
 
-    private static List<Map.Entry<Character, Double>> convertFreq2Probability(final Map<Character, Integer> freq) {
-        double total=freq.values().stream().mapToInt(Number::intValue).sum();
+    private static List<Map.Entry<Character, Double>> getProbability(String[] trainingData) {
+        Map<Character, Integer> freq = calculateFrequency(trainingData);
+        double total = freq.values().stream().mapToInt(Number::intValue).sum();
         return freq
                 .entrySet()
                 .stream()
