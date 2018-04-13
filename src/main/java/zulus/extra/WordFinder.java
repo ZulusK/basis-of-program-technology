@@ -37,7 +37,7 @@ public class WordFinder {
         return output;
     }
 
-    private static int[] computePrefixFunction(String str) {
+    protected static int[] computePrefixFunction(String str) {
         int[] prefixes = new int[str.length()];
         int k = 0;
         for (int i = 1; i < str.length(); i++) {

@@ -49,7 +49,6 @@ public class BaseTranslatorTest {
         assertArrayEquals(base4, BaseTranslator.convertBase(input, 2, 4, base4.length));
         assertArrayEquals(base8, BaseTranslator.convertBase(input, 2, 8, base8.length));
         assertArrayEquals(base13, BaseTranslator.convertBase(input, 2, 13, base13.length));
-
     }
 
     @Test

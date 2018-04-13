@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNull;
 import java.math.BigInteger;
 
 import org.junit.Test;
-import zulus.extra.PiGenerator;
 
 public class PiGeneratorTest {
     @Test

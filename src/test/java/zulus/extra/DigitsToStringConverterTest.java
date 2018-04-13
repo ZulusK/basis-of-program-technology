@@ -41,7 +41,7 @@ public class DigitsToStringConverterTest {
                 DigitsToStringConverter.convert(input16, 16, alphabet16));
 
     }
-
+    @Test
     public void invalidInputTest() {
         // Invalid input
         int[] input = { 0, -11, 2, 3 };
