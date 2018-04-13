@@ -43,11 +43,11 @@ public class Main {
         System.out.printf("Converted Pi to %d base\n", base);
         String pi = DigitsToStringConverter.convert(piInBase, base, alphabet);
         System.out.printf("Replace digits in Pi with symbol in alphabet\n", base);
-        var matches = WordFinder.findWords(pi, words);
+        Map<String,Integer> matches = WordFinder.findWords(pi, words);
         System.out.printf("Search complete with base %d and alphabet:\n%s\n", base, Arrays.toString(alphabet));
         matches.entrySet()
                 .stream()
-                .sorted(Comparator.comparing(e -> e.getKey()))
+                .sorted(Comparator.comparing((Map.Entry<String,Integer> e) -> e.getKey()))
                 .forEach(pair -> {
                     System.out.printf("Math word `%s` at %d: `...%s...`\n", pair.getKey(), pair.getValue(), pi.substring(Math.max(0, pair.getValue() - 3), Math.min(pair.getValue()+pair.getKey().length() + 3, pi.length()-1)));
                 });
