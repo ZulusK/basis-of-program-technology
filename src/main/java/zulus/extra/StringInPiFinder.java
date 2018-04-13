@@ -9,8 +9,6 @@ public class StringInPiFinder extends WordFinder {
         char[] digits = "0123456789".toCharArray();
         do {
             String pi = DigitsToStringConverter.convert(BaseTranslator.convertBase(PiGenerator.computePiInHex(length), 16, 10, length), 10, digits);
-            System.out.println(pi.length());
-
             int matches = WordFinder.findWord(pi, str);
             if (matches >= 0) {
                 return matches;
