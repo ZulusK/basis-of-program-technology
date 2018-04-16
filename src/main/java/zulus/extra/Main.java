@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Main {
-    private static final int PI_LENGTH=1000;
+    private static final int PI_LENGTH=5000;
     public static void main(String[] args) {
         String inputFileName = args.length > 1 ? args[1] : "resources/words.txt";
         String[] words = readWords(inputFileName).toArray(new String[0]);
@@ -19,9 +19,9 @@ public class Main {
         int[] piHex = PiGenerator.computePiInHex(PI_LENGTH);
         System.out.println("Generated Pi in Hex");
         char[] basicAlphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        execSearch(piHex,words, basicAlphabet, basicAlphabet.length, 5000);
+        execSearch(piHex,words, basicAlphabet, basicAlphabet.length, PI_LENGTH);
         char[] freqAlphabet=AlphabetGenerator.generateFrequencyAlphabet(100,words);
-        execSearch(piHex,words, freqAlphabet, freqAlphabet.length, 5000);
+        execSearch(piHex,words, freqAlphabet, freqAlphabet.length, PI_LENGTH);
     }
 
     private static List<String> readWords(String filename) {
