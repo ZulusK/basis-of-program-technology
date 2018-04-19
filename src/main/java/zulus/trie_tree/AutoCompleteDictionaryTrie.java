@@ -19,6 +19,7 @@ public class AutoCompleteDictionaryTrie implements Dictionary, AutoComplete {
      * Insert a word into the trie.
      */
     public boolean addWord(String word) {
+        if (word == null) return false;
         word = word.toLowerCase();
         if (isWord(word)) {
             return false;
@@ -81,7 +82,7 @@ public class AutoCompleteDictionaryTrie implements Dictionary, AutoComplete {
         // Add all of its child nodes to the back of the queue
         // Return the list of completions
         LinkedList<String> predictions = new LinkedList<>();
-        ArrayDeque<TrieNode> nodes = new ArrayDeque<>();
+        LinkedList<TrieNode> nodes = new LinkedList<>();
         TrieNode stem = getNodeContainer(prefix);
         if (stem != null) {
             nodes.add(stem);
