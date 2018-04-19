@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - openjdk10
+  - oraclejdk9
 sudo: false # faster builds
 install:
 - mvn install -DskipTests=true -Dmaven.javadoc.skip=false -B -V
