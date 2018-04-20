@@ -2,19 +2,17 @@ grammar MathLang;
 @header {
     package zulus.lab3.grammar;
 }
-assign
-    :   VARIABLE ASSIGN expression NEWLINE
-    ;
-print
-    : expression NEWLINE
-    | assign
+
+init
+    :   VARIABLE ASSIGN expression NEWLINE?  #assign
+    |   expression NEWLINE?                  #print
     ;
 expression
-    :   expression PLUS expression      #ExpressionPlus
+    :   signedAtom                      #PlainSignedAtom
+    |   expression PLUS expression      #ExpressionPlus
     |   expression MINUS expression     #ExpressionSubtract
     |   expression DIV expression       #ExpressionDiv
     |   expression MUL expression       #ExpressionMul
-    |   signedAtom                      #PlainSignedAtom
     ;
 
 signedAtom
@@ -27,6 +25,7 @@ atom
     :   VARIABLE
     |   NUMBER
     |   matrix
+    |   array
     ;
 matrix
     :   LBRACKET RBRACKET

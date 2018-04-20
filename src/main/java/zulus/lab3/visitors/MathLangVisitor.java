@@ -33,14 +33,21 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         if (ctx.VARIABLE() != null) {
             String varID = ctx.VARIABLE().getText();
             try {
-                return memory.get(varID);
+                Variable v=memory.get(varID);
+                if(v==null){
+                    throw new NoSuchElementException();
+                }else{
+                    return v;
+                }
             } catch (NoSuchElementException exception) {
-                throw new ParseCancellationException(String.format("This variable already is undefined: %s", varID));
+                throw new ParseCancellationException(String.format("Variable '%s' is undefined", varID));
             }
         } else if (ctx.NUMBER() != null) {
             return new Variable<Double>(Double.parseDouble(ctx.NUMBER().getText()), Double.class);
-        } else {
+        } else if (ctx.matrix() != null) {
             return visit(ctx.matrix());
+        } else {
+            return visit(ctx.array());
         }
     }
 
@@ -80,11 +87,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     // expression | assign
     @Override
     public Variable visitPrint(MathLangParser.PrintContext ctx) {
-        if (ctx.assign() != null) {
-            return new Variable<>(visit(ctx.assign()).getValue().toString(), String.class);
-        } else {
-            return new Variable<>(visit(ctx.expression()).getValue().toString(), String.class);
-        }
+        return new Variable<>(visit(ctx.expression()).getValue().toString(), String.class);
     }
 
     // expression + expression
@@ -100,12 +103,13 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         try {
             Double leftD = Converter.convertToDouble(left);
             Double rightD = Converter.convertToDouble(right);
-            return new Variable<>(rightD - leftD, Double.class);
+            return new Variable<>(rightD + leftD, Double.class);
         } catch (ConvertationException exc) {
             throw new ParseCancellationException("SUM cannot be applied:" + exc.getMessage());
         }
 
     }
+
     // expression - expression
     @Override
     public Variable visitExpressionSubtract(MathLangParser.ExpressionSubtractContext ctx) {
@@ -114,7 +118,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         try {
             Double leftD = Converter.convertToDouble(left);
             Double rightD = Converter.convertToDouble(right);
-            return new Variable<>(rightD + leftD, Double.class);
+            return new Variable<>(  leftD-rightD, Double.class);
         } catch (ConvertationException exc) {
             throw new ParseCancellationException("SUBTRACT cannot be applied:" + exc.getMessage());
         }

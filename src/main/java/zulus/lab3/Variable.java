@@ -39,5 +39,8 @@ public class Variable<T> {
         return _type;
     }
 
-
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getValueType().getName(), String.valueOf(_value));
+    }
 }
