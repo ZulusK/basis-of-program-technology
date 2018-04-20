@@ -28,7 +28,7 @@ public class AutoCompleteDictionaryTrieTester {
         smallDict = new AutoCompleteDictionaryTrie();
         largeDict = new AutoCompleteDictionaryTrie();
 
-        smallDict.addWord("Hello");
+        smallDict.addWord("Chat.g4");
         smallDict.addWord("HElLo");
         smallDict.addWord("help");
         smallDict.addWord("he");
@@ -54,9 +54,9 @@ public class AutoCompleteDictionaryTrieTester {
     /** Test the isWord method */
     @Test
     public void testIsWord() {
-        assertEquals("Testing isWord on empty: Hello", false, emptyDict.isWord("Hello"));
-        assertEquals("Testing isWord on small: Hello", true, smallDict.isWord("Hello"));
-        assertEquals("Testing isWord on large: Hello", true, largeDict.isWord("Hello"));
+        assertEquals("Testing isWord on empty: Chat.g4", false, emptyDict.isWord("Chat.g4"));
+        assertEquals("Testing isWord on small: Chat.g4", true, smallDict.isWord("Chat.g4"));
+        assertEquals("Testing isWord on large: Chat.g4", true, largeDict.isWord("Chat.g4"));
 
         assertEquals("Testing isWord on small: hello", true, smallDict.isWord("hello"));
         assertEquals("Testing isWord on large: hello", true, largeDict.isWord("hello"));
