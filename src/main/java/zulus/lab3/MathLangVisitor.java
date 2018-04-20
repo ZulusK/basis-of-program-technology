@@ -1,4 +1,4 @@
-package zulus.lab3.visitors;
+package zulus.lab3;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import zulus.lab3.ConvertationException;
@@ -14,8 +14,11 @@ import java.util.stream.IntStream;
 public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     private Map<String, Variable> memory;
 
-    public MathLangVisitor() {
-        this.memory = new HashMap<>();
+    public MathLangVisitor(Map<String, Variable> storage) {
+        if (storage == null) {
+            throw new IllegalArgumentException("Argument 'storage' is null");
+        }
+        this.memory = storage;
     }
 
     // VARIABLE=expression
@@ -33,10 +36,10 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         if (ctx.VARIABLE() != null) {
             String varID = ctx.VARIABLE().getText();
             try {
-                Variable v=memory.get(varID);
-                if(v==null){
+                Variable v = memory.get(varID);
+                if (v == null) {
                     throw new NoSuchElementException();
-                }else{
+                } else {
                     return v;
                 }
             } catch (NoSuchElementException exception) {
@@ -118,7 +121,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         try {
             Double leftD = Converter.convertToDouble(left);
             Double rightD = Converter.convertToDouble(right);
-            return new Variable<>(  leftD-rightD, Double.class);
+            return new Variable<>(leftD - rightD, Double.class);
         } catch (ConvertationException exc) {
             throw new ParseCancellationException("SUBTRACT cannot be applied:" + exc.getMessage());
         }
