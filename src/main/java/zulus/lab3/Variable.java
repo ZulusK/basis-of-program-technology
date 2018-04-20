@@ -1,0 +1,43 @@
+package zulus.lab3;
+
+import org.antlr.v4.runtime.misc.ParseCancellationException;
+
+import java.lang.reflect.ParameterizedType;
+
+public class Variable<T> {
+    public static enum SIGN {
+        PLUS, MINUS
+    }
+
+    private T _value;
+    private Class<T> _type;
+    private SIGN sign = SIGN.PLUS;
+
+    public Variable(T value, Class<T> type) {
+        this._value = value;
+        this._type = type;
+    }
+
+    public SIGN getSign() {
+        return sign;
+    }
+
+    public Variable<T> setSign() {
+        this.sign = this.sign == SIGN.PLUS ? SIGN.MINUS : SIGN.MINUS;
+        return this;
+    }
+
+    public T getValue() {
+        return _value;
+    }
+
+    public void setValue(T _value) {
+        this._value = _value;
+    }
+
+    public Class<T> getValueType() {
+        return _type;
+    }
+
+
+}
