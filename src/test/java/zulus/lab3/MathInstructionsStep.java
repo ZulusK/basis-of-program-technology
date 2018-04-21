@@ -3,14 +3,9 @@ package zulus.lab3;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import org.jbehave.core.steps.CandidateSteps;
 import org.jbehave.core.steps.Steps;
-import sun.misc.Unsafe;
-
-import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class MathInstructionsStep extends Steps {
     MathLangEnvironment env;

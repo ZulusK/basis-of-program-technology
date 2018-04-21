@@ -94,7 +94,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     // expression | assign
     @Override
     public Variable visitPrint(MathLangParser.PrintContext ctx) {
-        return new Variable<>(visit(ctx.expression()).applySign().getValue().toString(), String.class);
+        return new Variable<>(visit(ctx.expression()).getValue().toString(), String.class);
     }
 
     // expression + expression
@@ -102,8 +102,10 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     public Variable visitExpressionPlus(MathLangParser.ExpressionPlusContext ctx) {
         Variable left = visit(ctx.expression(0));
         Variable right = visit(ctx.expression(1));
+        if(left==null||right==null){
+            throw new ParseCancellationException("Invalid operation form. It's a binary operation");
+        }
         Class leftClass = left.getValueType();
-
         if (leftClass.equals(String.class)) {
             return new Variable<>(left.getValue().toString() + right.getValue().toString(), String.class);
         }
@@ -122,6 +124,9 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     public Variable visitExpressionSubtract(MathLangParser.ExpressionSubtractContext ctx) {
         Variable left = visit(ctx.expression(0));
         Variable right = visit(ctx.expression(1));
+        if(left==null||right==null){
+            throw new ParseCancellationException("Invalid operation form. It's a binary operation");
+        }
         try {
             Double leftD = Converter.convertToDouble(left);
             Double rightD = Converter.convertToDouble(right);
