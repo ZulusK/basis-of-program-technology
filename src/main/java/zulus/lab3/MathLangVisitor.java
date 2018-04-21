@@ -164,7 +164,8 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     public Variable visitArray(MathLangParser.ArrayContext ctx) {
         // collect all members
         List<Variable> members = ctx.expression().stream().map(this::visit).collect(Collectors.toList());
-        if (members.size() == 0) return new Variable<>(new Matrix(0, 0), Matrix.class);
+        if (members.size() == 0 || members.get(0) == null)
+            throw new ParseCancellationException("Array definition is empty");
         if (members.stream().anyMatch(x -> !x.getValueType().equals(Double.class))) {
             throw new ParseCancellationException("Array can only contain doubles");
         } else {
@@ -179,8 +180,8 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     public Variable visitMatrix(MathLangParser.MatrixContext ctx) {
         // collect all members
         List<Variable> members = ctx.expression().stream().map(this::visit).collect(Collectors.toList());
-        if (members.size() == 0) return new Variable<>(new Matrix(0, 0), Matrix.class);
         Variable first = members.get(0);
+        if (first == null) throw new ParseCancellationException("Matrix definition is empty");
         // check, all members has the same type
         if (members.stream().anyMatch(x -> !x.getValueType().equals(first.getValueType()))) {
             throw new ParseCancellationException("Matrix definition includes non-identical members");
@@ -261,6 +262,74 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             return multiplyArrayByVariable((List) right.getValue(), left);
         } else {
             throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", left.getValueType().getName(), right.getValueType().getName()));
+        }
+    }
+
+
+    private Variable divMatrixByVariable(Matrix matrix, Variable var) {
+        if (var.getValueType().equals(Matrix.class)) {
+            throw new ParseCancellationException("Division of matrix is not supported");
+        } else if (var.getValueType().equals(Double.class) || var.getValueType().equals(String.class)) {
+            try {
+                Double val = Converter.convertToDouble(var);
+                return new Variable<>(matrix.multiply(1 / (Double) var.getValue()), Matrix.class);
+            } catch (ConvertationException exc) {
+                throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getName(), var.getValueType().getName()));
+            }
+        } else {
+            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getName(), var.getValueType().getName()));
+        }
+    }
+
+    private Variable divArrayByVariable(List<Variable> list, Variable var) {
+        if (var.getValueType().equals(List.class)) {
+            throw new ParseCancellationException("Division of arrays is not allowed");
+        } else if (var.getValueType().equals(Double.class) || var.getValueType().equals(String.class)) {
+            try {
+                Double val = Converter.convertToDouble(var);
+                return multiplyArrayByDouble(list, 1 / val);
+            } catch (ConvertationException exc) {
+                throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getName(), var.getValueType().getName()));
+            }
+        } else {
+            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getName(), var.getValueType().getName()));
+        }
+    }
+
+    @Override
+    public Variable visitDivExpression(MathLangParser.DivExpressionContext ctx) {
+        Variable left = visit(ctx.expression(0));
+        Variable right = visit(ctx.expression(1));
+        if (left == null || right == null) {
+            throw new ParseCancellationException("Invalid operation form. It's a binary operation");
+        }
+        if (left.getValueType().equals(Matrix.class)) {
+            return divMatrixByVariable((Matrix) left.getValue(), right);
+        } else if (right.getValueType().equals(Matrix.class)) {
+            return divMatrixByVariable((Matrix) right.getValue(), left);
+        } else if (left.getValueType().equals(Double.class) && right.getValueType().equals(Double.class)) {
+            return new Variable<>(((Double) left.getValue()) / ((Double) right.getValue()), Double.class);
+        } else if (left.getValueType().isAssignableFrom(List.class)) {
+            return divArrayByVariable((List) left.getValue(), right);
+        } else if (right.getValueType().isAssignableFrom(List.class)) {
+            return divArrayByVariable((List) right.getValue(), left);
+        } else {
+            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", left.getValueType().getName(), right.getValueType().getName()));
+        }
+    }
+
+    @Override
+    public Variable visitFactor(MathLangParser.FactorContext ctx) {
+        Variable base = visit(ctx.signedAtom(0));
+        if (ctx.signedAtom(1) != null) {
+            Variable power = visit(ctx.signedAtom(1));
+            if (power.getValueType().equals(Double.class) && base.getValueType().equals(Double.class)) {
+                return new Variable<>(Math.pow((Double) base.getValue(), (Double) power.getValue()), Double.class);
+            } else {
+                throw new ParseCancellationException(String.format("POW cannot be applied to object of types %s and %s ", base.getValueType().getName(), power.getValueType().getCanonicalName()));
+            }
+        } else {
+            return base;
         }
     }
 }

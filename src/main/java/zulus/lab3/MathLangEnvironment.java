@@ -1,9 +1,6 @@
 package zulus.lab3;
 
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import zulus.lab3.grammar.MathLangLexer;
@@ -30,6 +27,7 @@ public class MathLangEnvironment {
         try {
             MathLangLexer lexer = new MathLangLexer(stream);
             lexer.removeErrorListeners();
+            lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             MathLangParser parser = new MathLangParser(tokens);
             ParseTree tree = parser.init();
@@ -50,7 +48,6 @@ public class MathLangEnvironment {
             Variable result = null;
             try {
                 result = exec(CharStreams.fromString(command));
-                output = result.getValue().toString();
                 output = result.getValue().toString();
             } catch (MathLangParsingException exc) {
                 output = exc.toString();

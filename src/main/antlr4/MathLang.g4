@@ -73,12 +73,10 @@ variable
     :   VAR
     ;
 array
-    :   LFIGURE RFIGURE
-    |   LFIGURE expression  (',' expression)* RFIGURE
+    :   LFIGURE expression  (',' expression)* RFIGURE
     ;
 matrix
-    :   LBRACKET RBRACKET
-    |   LBRACKET expression (',' expression)* RBRACKET
+    :   LBRACKET expression (',' expression)* RBRACKET
     ;
 atom
     :   scientific
@@ -102,7 +100,6 @@ expression
     |   expression MINUS expression     # SubtractExpression
     |   expression DIV expression       # DivExpression
     |   expression MULT expression      # MultExpression
-    |   MODULE expression MODULE        # ModuleExpression
     |   'det('expression')'             # DeterminantExpression
     |   factor                          # PlainFactor
     ;
