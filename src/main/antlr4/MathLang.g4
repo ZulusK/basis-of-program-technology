@@ -3,73 +3,55 @@ grammar MathLang;
     package zulus.lab3.grammar;
 }
 
-init
-    :   VARIABLE ASSIGN expression NEWLINE?  #assign
-    |   expression NEWLINE?                  #print
-    ;
-expression
-    :   expression PLUS expression      #ExpressionPlus
-    |   expression MINUS expression     #ExpressionSubtract
-    |   expression DIV expression       #ExpressionDiv
-    |   expression MUL expression       #ExpressionMul
-    |   signedAtom                      #PlainSignedAtom
-    ;
-
-signedAtom
-    :   PLUS signedAtom                 #PlainValue
-    |   MINUS signedAtom                #InvertSign
-    |   atom                            #PlainValue
-    ;
-
-atom
-    :   VARIABLE
-    |   scientific
-    |   matrix
-    |   array
-    ;
-matrix
-    :   LBRACKET RBRACKET
-    |   LBRACKET expression (COMMA expression)* RBRACKET
-    ;
-array
-    :   LFIGURE RFIGURE
-    |   LFIGURE expression (COMMA expression)* RFIGURE
-    ;
-scientific
-    :   SCIENTIFIC_NUMBER
-    ;
-VARIABLE
-    :    VALID_ID_START VALID_ID_CHAR*
-	;
+fragment DOUBLE
+   :    ('0' .. '9') + ('.' ('0' .. '9') +)?
+   ;
 SCIENTIFIC_NUMBER
-    :    NUMBER (E SIGN? INT)?
+    :   DOUBLE (E SIGN? ('0'..'9')+)?
     ;
- fragment NUMBER
-    :  INT ('.'INT) ?
-	;
- fragment VALID_ID_START
-    :    [A-Za-z_]
-	;
- fragment VALID_ID_CHAR
-    :    VALID_ID_START | INT
-	;
-fragment SIGN
-    :   PLUS | MINUS
-	;
- fragment E
-    : ('E'|'e')
+
+PI
+    :   'pi'
     ;
- fragment INT
-    :   [0-9]+
+E
+    :   'e'
     ;
-COMMA
-    :   ','
+WS
+    :   [ \t\r]+ -> skip
     ;
-LFIGURE
-    :   '{'
+VAR
+    :   [a-zA-Z_][a-zA-Z_0-9]*
     ;
-RFIGURE
-    :   '}'
+NEWLINE
+    :   '\r?\n'
+    ;
+
+POW
+    :   '^'
+    ;
+SIGN
+    :   ('+' | '-')
+    ;
+PLUS
+    :   '+'
+    ;
+EQUAL
+    :   '='
+    ;
+MINUS
+    :   '-'
+    ;
+MULT
+    :   '*'
+    ;
+DIV
+    :   '/'
+    ;
+LPAREN
+    :   '('
+    ;
+RPAREN
+    :   ')'
     ;
 LBRACKET
     :   '['
@@ -77,30 +59,56 @@ LBRACKET
 RBRACKET
     :   ']'
     ;
-LPAREN
-    :    '('
-	;
-RPAREN
-    :    ')'
-	;
-PLUS
-    :    '+'
-	;
-MINUS
-    :   '-'
-	;
-MUL
-    :   '*'
-	;
-DIV
-    :   '/'
-	;
-ASSIGN
-    :   '='
-	;
-NEWLINE
-    :    '\r'?'\n'
-	;
-WS
-    :   [\r\t\n]+ -> skip
-	;
+LFIGURE
+    :   '{'
+    ;
+RFIGURE
+    :   '}'
+    ;
+
+scientific
+    :   SCIENTIFIC_NUMBER
+    ;
+
+variable
+    :   VAR
+    ;
+matrix
+    :   LBRACKET RBRACKET
+    |   LBRACKET expression (',' expression)? RBRACKET
+    ;
+atom
+    :   scientific | variable | LPAREN expression RPAREN| matrix
+    ;
+
+signedAtom
+   :   PLUS signedAtom      # plainSignedAtom
+   |   MINUS signedAtom     # invertSignedAtom
+   |   atom                 # plainAtom
+   ;
+
+factor
+    :   signedAtom POW signedAtom
+    ;
+expression
+    :   expression PLUS expression      # SumExpression
+    |   expression MINUS expression     # SubtractExpression
+    |   expression DIV expression       # DivExpression
+    |   expression MULT expression      # MulTExpression
+    |   factor                          # PlainFactor
+    ;
+assign
+    :   VAR EQUAL expression
+    ;
+print
+    :    expression NEWLINE
+    |    assign NEWLINE
+    ;
+init
+    :   print
+    ;
+
+
+
+
+

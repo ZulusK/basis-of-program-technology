@@ -13,74 +13,17 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface MathLangVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by the {@code assign}
-	 * labeled alternative in {@link MathLangParser#init}.
+	 * Visit a parse tree produced by {@link MathLangParser#scientific}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssign(MathLangParser.AssignContext ctx);
+	T visitScientific(MathLangParser.ScientificContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code print}
-	 * labeled alternative in {@link MathLangParser#init}.
+	 * Visit a parse tree produced by {@link MathLangParser#variable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrint(MathLangParser.PrintContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExpressionSubtract}
-	 * labeled alternative in {@link MathLangParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpressionSubtract(MathLangParser.ExpressionSubtractContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExpressionDiv}
-	 * labeled alternative in {@link MathLangParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpressionDiv(MathLangParser.ExpressionDivContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExpressionMul}
-	 * labeled alternative in {@link MathLangParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpressionMul(MathLangParser.ExpressionMulContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PlainSignedAtom}
-	 * labeled alternative in {@link MathLangParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPlainSignedAtom(MathLangParser.PlainSignedAtomContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExpressionPlus}
-	 * labeled alternative in {@link MathLangParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpressionPlus(MathLangParser.ExpressionPlusContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PlainValue}
-	 * labeled alternative in {@link MathLangParser#signedAtom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPlainValue(MathLangParser.PlainValueContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code InvertSign}
-	 * labeled alternative in {@link MathLangParser#signedAtom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInvertSign(MathLangParser.InvertSignContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MathLangParser#atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAtom(MathLangParser.AtomContext ctx);
+	T visitVariable(MathLangParser.VariableContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MathLangParser#matrix}.
 	 * @param ctx the parse tree
@@ -88,15 +31,89 @@ public interface MathLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMatrix(MathLangParser.MatrixContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MathLangParser#array}.
+	 * Visit a parse tree produced by {@link MathLangParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArray(MathLangParser.ArrayContext ctx);
+	T visitAtom(MathLangParser.AtomContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MathLangParser#scientific}.
+	 * Visit a parse tree produced by the {@code plainSignedAtom}
+	 * labeled alternative in {@link MathLangParser#signedAtom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitScientific(MathLangParser.ScientificContext ctx);
+	T visitPlainSignedAtom(MathLangParser.PlainSignedAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code invertSignedAtom}
+	 * labeled alternative in {@link MathLangParser#signedAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInvertSignedAtom(MathLangParser.InvertSignedAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code plainAtom}
+	 * labeled alternative in {@link MathLangParser#signedAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlainAtom(MathLangParser.PlainAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MathLangParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactor(MathLangParser.FactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SubtractExpression}
+	 * labeled alternative in {@link MathLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubtractExpression(MathLangParser.SubtractExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MulTExpression}
+	 * labeled alternative in {@link MathLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMulTExpression(MathLangParser.MulTExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PlainFactor}
+	 * labeled alternative in {@link MathLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlainFactor(MathLangParser.PlainFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumExpression}
+	 * labeled alternative in {@link MathLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumExpression(MathLangParser.SumExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DivExpression}
+	 * labeled alternative in {@link MathLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDivExpression(MathLangParser.DivExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MathLangParser#assign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssign(MathLangParser.AssignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MathLangParser#print}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrint(MathLangParser.PrintContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MathLangParser#init}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInit(MathLangParser.InitContext ctx);
 }
