@@ -9,14 +9,13 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import zulus.lab3.grammar.MathLangLexer;
 import zulus.lab3.grammar.MathLangParser;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MathLangEnvironment {
-    Map<String, Variable> _memory;
-    MathLangVisitor _visitor;
+    private Map<String, Variable> _memory;
+    private MathLangVisitor _visitor;
 
     public Map<String, Variable> getMemory() {
         return _memory;
@@ -27,7 +26,7 @@ public class MathLangEnvironment {
         this._visitor = new MathLangVisitor(_memory);
     }
 
-    private Variable exec(CharStream stream) throws MathLandParsingException {
+    private Variable exec(CharStream stream) throws MathLangParsingException {
         try {
             MathLangLexer lexer = new MathLangLexer(stream);
             lexer.removeErrorListeners();
@@ -36,11 +35,11 @@ public class MathLangEnvironment {
             ParseTree tree = parser.init();
             return _visitor.visit(tree);
         } catch (ParseCancellationException exc) {
-            System.out.println("1   " + exc);
-            throw new MathLandParsingException(exc);
+//            System.err.println("1   " + exc);
+            throw new MathLangParsingException(exc);
         } catch (RecognitionException exc) {
-            System.out.println("2   " + exc);
-            throw new MathLandParsingException(exc);
+//            System.err.println("2   " + exc);
+            throw new MathLangParsingException(exc);
         }
     }
 
@@ -53,14 +52,17 @@ public class MathLangEnvironment {
                 result = exec(CharStreams.fromString(command));
                 _memory.put("_", result);
                 output = result.getValue().toString();
-            } catch (MathLandParsingException exc) {
-                System.out.println(exc);
+            } catch (MathLangParsingException exc) {
                 output = exc.toString();
             }
             return output;
         }
     }
 
+    @Override
+    public String toString() {
+        return "MathLang ENV: \n" + _memory.entrySet().stream().map((Map.Entry x) -> String.format("%s:%s", x.getKey(), x.getValue())).collect(Collectors.joining("\n"));
+    }
 //    public String exec(InputStream input) {
 //        if (input == null) throw new IllegalArgumentException("Argument 'input' must be not-null value");
 //        else {
@@ -72,7 +74,7 @@ public class MathLangEnvironment {
 //                output = result.getValue().toString();
 //            } catch (IOException exc) {
 //                output = String.format("ERROR. %s", exc.getMessage());
-//            } catch (MathLandParsingException exc) {
+//            } catch (MathLangParsingException exc) {
 //                System.out.println(exc);
 //                output = exc.toString();
 //            }

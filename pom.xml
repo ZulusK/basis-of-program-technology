@@ -137,6 +137,7 @@
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-maven-plugin</artifactId>
             <version>4.2</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

@@ -45,8 +45,12 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             } catch (NoSuchElementException exception) {
                 throw new ParseCancellationException(String.format("Variable '%s' is undefined", varID));
             }
-        } else if (ctx.NUMBER() != null) {
-            return new Variable<Double>(Double.parseDouble(ctx.NUMBER().getText()), Double.class);
+        } else if (ctx.scientific() != null) {
+            try {
+                return new Variable<Double>(Double.parseDouble(ctx.scientific().getText()), Double.class);
+            }catch (NumberFormatException exc){
+                throw new ParseCancellationException(String.format("Invalid number format '%s'", ctx.scientific().getText()));
+            }
         } else if (ctx.matrix() != null) {
             return visit(ctx.matrix());
         } else {
@@ -58,7 +62,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     @Override
     public Variable visitArray(MathLangParser.ArrayContext ctx) {
         List<Variable> array = ctx.expression().stream().map(this::visit).collect(Collectors.toList());
-        if (array.stream().allMatch(p -> p.getValueType().equals(Double.class))) {
+        if (array.stream().anyMatch(p -> !p.getValueType().equals(Double.class))) {
             int[] illegalArgumentsIndexes = IntStream
                     .range(0, array.size())
                     .filter(i -> !array.get(i)

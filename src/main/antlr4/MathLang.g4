@@ -8,11 +8,11 @@ init
     |   expression NEWLINE?                  #print
     ;
 expression
-    :   signedAtom                      #PlainSignedAtom
-    |   expression PLUS expression      #ExpressionPlus
+    :   expression PLUS expression      #ExpressionPlus
     |   expression MINUS expression     #ExpressionSubtract
     |   expression DIV expression       #ExpressionDiv
     |   expression MUL expression       #ExpressionMul
+    |   signedAtom                      #PlainSignedAtom
     ;
 
 signedAtom
@@ -23,35 +23,43 @@ signedAtom
 
 atom
     :   VARIABLE
-    |   NUMBER
+    |   scientific
     |   matrix
     |   array
     ;
 matrix
     :   LBRACKET RBRACKET
     |   LBRACKET expression (COMMA expression)* RBRACKET
-    |   LBRACKET array (COMMA array)* RBRACKET
     ;
 array
     :   LFIGURE RFIGURE
     |   LFIGURE expression (COMMA expression)* RFIGURE
     ;
-NUMBER
-   :  INT+('.'INT+)?
-	;
+scientific
+    :   SCIENTIFIC_NUMBER
+    ;
 VARIABLE
-   :    VALID_ID_START VALID_ID_CHAR*   
+    :    VALID_ID_START VALID_ID_CHAR*
 	;
-fragment VALID_ID_START
-   :    ('a' .. 'z') | ('A' .. 'Z') | '_'
+SCIENTIFIC_NUMBER
+    :    NUMBER (E SIGN? INT)?
+    ;
+ fragment NUMBER
+    :  INT ('.'INT) ?
 	;
-fragment VALID_ID_CHAR
-   :    VALID_ID_START | ('0' .. '9')
+ fragment VALID_ID_START
+    :    [A-Za-z_]
+	;
+ fragment VALID_ID_CHAR
+    :    VALID_ID_START | INT
 	;
 fragment SIGN
-   :    ('+' | '-')
+    :   PLUS | MINUS
 	;
-INT
+ fragment E
+    : ('E'|'e')
+    ;
+ fragment INT
     :   [0-9]+
     ;
 COMMA
@@ -70,13 +78,13 @@ RBRACKET
     :   ']'
     ;
 LPAREN
-   :    '('
+    :    '('
 	;
 RPAREN
-   :    ')'
+    :    ')'
 	;
 PLUS
-   :    '+'
+    :    '+'
 	;
 MINUS
     :   '-'
@@ -93,7 +101,6 @@ ASSIGN
 NEWLINE
     :    '\r'?'\n'
 	;
-
 WS
-    :   [ \t\r\n]+ -> skip
+    :   [\r\t\n]+ -> skip
 	;
