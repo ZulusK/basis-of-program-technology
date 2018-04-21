@@ -1,15 +1,15 @@
 package zulus.lab3;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
-import zulus.lab3.ConvertationException;
-import zulus.lab3.Converter;
-import zulus.lab3.Variable;
+import zulus.lab1.Matrix;
 import zulus.lab3.grammar.MathLangBaseVisitor;
 import zulus.lab3.grammar.MathLangParser;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     private Map<String, Variable> memory;
@@ -48,7 +48,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         } else if (ctx.scientific() != null) {
             try {
                 return new Variable<Double>(Double.parseDouble(ctx.scientific().getText()), Double.class);
-            }catch (NumberFormatException exc){
+            } catch (NumberFormatException exc) {
                 throw new ParseCancellationException(String.format("Invalid number format '%s'", ctx.scientific().getText()));
             }
         } else if (ctx.matrix() != null) {
@@ -102,7 +102,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     public Variable visitExpressionPlus(MathLangParser.ExpressionPlusContext ctx) {
         Variable left = visit(ctx.expression(0));
         Variable right = visit(ctx.expression(1));
-        if(left==null||right==null){
+        if (left == null || right == null) {
             throw new ParseCancellationException("Invalid operation form. It's a binary operation");
         }
         Class leftClass = left.getValueType();
@@ -124,7 +124,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     public Variable visitExpressionSubtract(MathLangParser.ExpressionSubtractContext ctx) {
         Variable left = visit(ctx.expression(0));
         Variable right = visit(ctx.expression(1));
-        if(left==null||right==null){
+        if (left == null || right == null) {
             throw new ParseCancellationException("Invalid operation form. It's a binary operation");
         }
         try {
@@ -136,4 +136,23 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         }
     }
 
+    // [...]
+    @Override
+    public Variable visitMatrix(MathLangParser.MatrixContext ctx) {
+        List<MathLangParser.ExpressionContext> expressions = ctx.expression();
+        Stream<Variable> stream = expressions.stream().map(this::visit);
+        Variable first = stream.findFirst().orElse(null);
+        if (first != null) {
+            if (stream.allMatch((Variable x) -> {
+                Class c = x.getValueType();
+                if (c.isAssignableFrom(List.class) && ((List) x.getValue()).size() == ((List) first.getValue()).size()) {
+                    return true;
+                }
+                return false;
+            })) {
+                List<List> lists = stream.flatMap(x -> ((List) x.getValue()).stream()).collect(Collectors.toList());
+                Matrix m = new Matrix()
+            }
+        }
+    }
 }

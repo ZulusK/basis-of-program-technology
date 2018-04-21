@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MathLangTest {
+class MathLangTest {
 
     private double DELTA = 1e-6;
 
@@ -85,7 +85,6 @@ public class MathLangTest {
     })
     void listInvalidArgsTest(String instruction){
         assertTrue(getEnv().exec(instruction).startsWith("ERROR."));
-
     }
 }
 
