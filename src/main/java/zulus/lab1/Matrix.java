@@ -42,6 +42,17 @@ public class Matrix {
         }
     }
 
+    public Matrix(Double[][] src) {
+        this(src.length, src[0].length);
+        int rows = src.length;
+        int columns = src[0].length;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                _data[i][j] = src[i][j];
+            }
+        }
+    }
+
     /**
      * create new  matrix from 2-dimension array
      *
@@ -242,16 +253,16 @@ public class Matrix {
             throw new IllegalArgumentException("zulus.lab1.Matrix is not square");
         } else if (!this._isActualDeterminant) {
             switch (this.getColumns()) {
-            case 1:
-                this._determinant = this.get(0, 0);
-                break;
-            case 2:
-                this._determinant = determinant2x2(0, 0);
-                break;
-            default:
-                // if matrix is NxN
-                this._determinant = this.determinantNxN();
-                break;
+                case 1:
+                    this._determinant = this.get(0, 0);
+                    break;
+                case 2:
+                    this._determinant = determinant2x2(0, 0);
+                    break;
+                default:
+                    // if matrix is NxN
+                    this._determinant = this.determinantNxN();
+                    break;
             }
             this._isActualDeterminant = true;
         }

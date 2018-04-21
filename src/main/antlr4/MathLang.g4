@@ -23,7 +23,7 @@ VAR
     :   [a-zA-Z_][a-zA-Z_0-9]*
     ;
 NEWLINE
-    :   '\r?\n'
+    :   '\n'
     ;
 
 POW
@@ -65,7 +65,9 @@ LFIGURE
 RFIGURE
     :   '}'
     ;
-
+MODULE
+    :   '|'
+    ;
 scientific
     :   SCIENTIFIC_NUMBER
     ;
@@ -73,36 +75,46 @@ scientific
 variable
     :   VAR
     ;
+array
+    :   LFIGURE RFIGURE
+    |   LFIGURE expression  (',' expression)? RFIGURE
+    ;
 matrix
     :   LBRACKET RBRACKET
     |   LBRACKET expression (',' expression)? RBRACKET
     ;
 atom
-    :   scientific | variable | LPAREN expression RPAREN| matrix
+    :   scientific
+    |   variable
+    |   LPAREN expression RPAREN
+    |   matrix
+    |   array
     ;
 
 signedAtom
-   :   PLUS signedAtom      # plainSignedAtom
-   |   MINUS signedAtom     # invertSignedAtom
-   |   atom                 # plainAtom
+   :   PLUS signedAtom      # PlainAtom
+   |   MINUS signedAtom     # InvertSignedAtom
+   |   atom                 # PlainAtom
    ;
 
 factor
-    :   signedAtom POW signedAtom
+    :   signedAtom (POW signedAtom)?
     ;
 expression
     :   expression PLUS expression      # SumExpression
     |   expression MINUS expression     # SubtractExpression
     |   expression DIV expression       # DivExpression
     |   expression MULT expression      # MulTExpression
+    |   MODULE expression MODULE        # ModuleExpression
+    |   'det('expression')'             # DeterminantExpression
     |   factor                          # PlainFactor
     ;
 assign
     :   VAR EQUAL expression
     ;
 print
-    :    expression NEWLINE
-    |    assign NEWLINE
+    :    expression NEWLINE?
+    |    assign NEWLINE?
     ;
 init
     :   print
