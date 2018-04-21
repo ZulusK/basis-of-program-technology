@@ -70,13 +70,6 @@ public interface MathLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSubtractExpression(MathLangParser.SubtractExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ModuleExpression}
-	 * labeled alternative in {@link MathLangParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitModuleExpression(MathLangParser.ModuleExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code PlainFactor}
 	 * labeled alternative in {@link MathLangParser#expression}.
 	 * @param ctx the parse tree
