@@ -50,7 +50,7 @@ public class MathLangEnvironment {
             Variable result = null;
             try {
                 result = exec(CharStreams.fromString(command));
-                _memory.put("_", result);
+                output = result.getValue().toString();
                 output = result.getValue().toString();
             } catch (MathLangParsingException exc) {
                 output = exc.toString();

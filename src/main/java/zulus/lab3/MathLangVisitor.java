@@ -8,8 +8,8 @@ import zulus.lab3.grammar.MathLangParser;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     private Map<String, Variable> memory;
@@ -33,7 +33,9 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     // expression | assign
     @Override
     public Variable visitPrint(MathLangParser.PrintContext ctx) {
-        return new Variable<>(visit(ctx.expression()).getValue().toString(), String.class);
+        Variable result = visit(ctx.expression() != null ? ctx.expression() : ctx.assign());
+        memory.put("_", result);
+        return new Variable<>(String.valueOf(result.getValue()), String.class);
     }
 
 
@@ -65,6 +67,10 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             return visit(ctx.scientific());
         } else if (ctx.expression() != null) {
             return visit(ctx.expression());
+        } else if (ctx.matrix() != null) {
+            return visit(ctx.matrix());
+        } else if (ctx.array() != null) {
+            return visit(ctx.array());
         } else {
             throw new ParseCancellationException(String.format("Cannot recognize type of atom"));
         }
@@ -147,23 +153,23 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
 
     private Matrix getMatrixFromLists(List<Variable> members) {
         List first = (List) members.get(0).getValue();
-        Stream<List> arrays = members.stream().map(x -> (List) x.getValue());
-        if (arrays.anyMatch(x -> x.size() != first.size())) {
+        List<List> arrays = members.stream().map(x -> (List) x.getValue()).collect(Collectors.toList());
+        if (arrays.stream().anyMatch(x -> x.size() != first.size())) {
             throw new ParseCancellationException("Matrix definition includes lists with different length");
         }
-        return new Matrix(arrays.map(x -> x.stream().toArray(Double[]::new)).toArray(Double[][]::new));
+        return new Matrix(arrays.stream().map(x -> x.stream().toArray(Double[]::new)).toArray(Double[][]::new));
     }
 
     @Override
     public Variable visitArray(MathLangParser.ArrayContext ctx) {
         // collect all members
-        Stream<Variable> members = ctx.expression().stream().map(this::visit);
-        if (members.count() == 0) return new Variable<>(new Matrix(0, 0), Matrix.class);
-        if (members.anyMatch(x -> !x.getValueType().equals(Double.class))) {
+        List<Variable> members = ctx.expression().stream().map(this::visit).collect(Collectors.toList());
+        if (members.size() == 0) return new Variable<>(new Matrix(0, 0), Matrix.class);
+        if (members.stream().anyMatch(x -> !x.getValueType().equals(Double.class))) {
             throw new ParseCancellationException("Array can only contain doubles");
         } else {
             return new Variable<>(
-                    members.mapToDouble(x -> (Double) x.getValue()).boxed().collect(Collectors.toList()),
+                    members.stream().mapToDouble(x -> (Double) x.getValue()).boxed().collect(Collectors.toList()),
                     List.class);
         }
     }
@@ -199,6 +205,62 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             throw new ParseCancellationException("Cannot calculate determinant of not a matrix member");
         } catch (IllegalArgumentException exc) {
             throw new ParseCancellationException(exc.getMessage());
+        }
+    }
+
+    private Variable multiplyMatrixByVariable(Matrix matrix, Variable var) {
+        if (var.getValueType().equals(Matrix.class)) {
+            throw new ParseCancellationException("Multiplication of matrix is not supported yet");
+        } else if (var.getValueType().equals(Double.class) || var.getValueType().equals(String.class)) {
+            try {
+                Double val = Converter.convertToDouble(var);
+                return new Variable<>(matrix.multiply((Double) var.getValue()), Matrix.class);
+            } catch (ConvertationException exc) {
+                throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getName(), var.getValueType().getName()));
+            }
+        } else {
+            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getName(), var.getValueType().getName()));
+        }
+    }
+
+    private Variable multiplyArrayByDouble(List<Variable> list, Double val) {
+        return new Variable<>(list.stream().mapToDouble((Variable x) -> (Double) x.getValue()).map(x -> ((Double) x) * val).boxed().collect(Collectors.toList()), List.class);
+    }
+
+    private Variable multiplyArrayByVariable(List<Variable> list, Variable var) {
+        if (var.getValueType().equals(List.class)) {
+            throw new ParseCancellationException("Multiplication of arrays is not supported yet");
+        } else if (var.getValueType().equals(Double.class) || var.getValueType().equals(String.class)) {
+            try {
+                Double val = Converter.convertToDouble(var);
+                return multiplyArrayByDouble(list, val);
+            } catch (ConvertationException exc) {
+                throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getName(), var.getValueType().getName()));
+            }
+        } else {
+            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getName(), var.getValueType().getName()));
+        }
+    }
+
+    @Override
+    public Variable visitMultExpression(MathLangParser.MultExpressionContext ctx) {
+        Variable left = visit(ctx.expression(0));
+        Variable right = visit(ctx.expression(1));
+        if (left == null || right == null) {
+            throw new ParseCancellationException("Invalid operation form. It's a binary operation");
+        }
+        if (left.getValueType().equals(Matrix.class)) {
+            return multiplyMatrixByVariable((Matrix) left.getValue(), right);
+        } else if (right.getValueType().equals(Matrix.class)) {
+            return multiplyMatrixByVariable((Matrix) right.getValue(), left);
+        } else if (left.getValueType().equals(Double.class) && right.getValueType().equals(Double.class)) {
+            return new Variable<>(((Double) left.getValue()) * ((Double) right.getValue()), Double.class);
+        } else if (left.getValueType().isAssignableFrom(List.class)) {
+            return multiplyArrayByVariable((List) left.getValue(), right);
+        } else if (right.getValueType().isAssignableFrom(List.class)) {
+            return multiplyArrayByVariable((List) right.getValue(), left);
+        } else {
+            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", left.getValueType().getName(), right.getValueType().getName()));
         }
     }
 }

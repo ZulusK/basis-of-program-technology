@@ -77,13 +77,6 @@ public interface MathLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitModuleExpression(MathLangParser.ModuleExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code MulTExpression}
-	 * labeled alternative in {@link MathLangParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMulTExpression(MathLangParser.MulTExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code PlainFactor}
 	 * labeled alternative in {@link MathLangParser#expression}.
 	 * @param ctx the parse tree
@@ -111,6 +104,13 @@ public interface MathLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDeterminantExpression(MathLangParser.DeterminantExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultExpression}
+	 * labeled alternative in {@link MathLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultExpression(MathLangParser.MultExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MathLangParser#assign}.
 	 * @param ctx the parse tree

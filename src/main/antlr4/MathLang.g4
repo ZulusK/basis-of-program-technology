@@ -7,7 +7,7 @@ fragment DOUBLE
    :    ('0' .. '9') + ('.' ('0' .. '9') +)?
    ;
 SCIENTIFIC_NUMBER
-    :   DOUBLE (E SIGN? ('0'..'9')+)?
+    :   DOUBLE (E (PLUS|MINUS)? ('0'..'9')+)?
     ;
 
 PI
@@ -28,9 +28,6 @@ NEWLINE
 
 POW
     :   '^'
-    ;
-SIGN
-    :   ('+' | '-')
     ;
 PLUS
     :   '+'
@@ -77,11 +74,11 @@ variable
     ;
 array
     :   LFIGURE RFIGURE
-    |   LFIGURE expression  (',' expression)? RFIGURE
+    |   LFIGURE expression  (',' expression)* RFIGURE
     ;
 matrix
     :   LBRACKET RBRACKET
-    |   LBRACKET expression (',' expression)? RBRACKET
+    |   LBRACKET expression (',' expression)* RBRACKET
     ;
 atom
     :   scientific
@@ -104,7 +101,7 @@ expression
     :   expression PLUS expression      # SumExpression
     |   expression MINUS expression     # SubtractExpression
     |   expression DIV expression       # DivExpression
-    |   expression MULT expression      # MulTExpression
+    |   expression MULT expression      # MultExpression
     |   MODULE expression MODULE        # ModuleExpression
     |   'det('expression')'             # DeterminantExpression
     |   factor                          # PlainFactor
