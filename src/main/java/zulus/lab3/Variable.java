@@ -43,4 +43,15 @@ public class Variable<T> {
     public String toString() {
         return String.format("[%s] %s", getValueType().getName(), String.valueOf(_value));
     }
+
+    public Variable applySign() {
+        if (sign == SIGN.PLUS) return new Variable<>(this._value, this._type);
+        else {
+            if (_type.equals(Double.class)) {
+                return new Variable<>(((Double) this._value) * -1, Double.class);
+            } else {
+                return new Variable<>(_value, _type);
+            }
+        }
+    }
 }

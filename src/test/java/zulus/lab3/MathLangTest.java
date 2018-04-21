@@ -1,27 +1,34 @@
 package zulus.lab3;
 
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class MathLangTest {
-    MathLangEnvironment env;
 
-    @Given("Env $env")
-    public void runParsing() {
-        env = new MathLangEnvironment();
+    private double DELTA=0e-6;
+    MathLangEnvironment getEnv() {
+        return new MathLangEnvironment();
     }
 
-    @When("Calculate expression $input")
-    public void runParsing(String input) {
-        env.exec(input);
+    @ParameterizedTest(name = "Test Floats recognition: {0}")
+    @DisplayName("Should return the same strings")
+    @ValueSource(strings = {"12","-12","1.3","-0.43","-123.0123","+12","0.1e3","-3E-3"})
+    public void FloatNumberTest(String instruction){
+        assertEquals(Double.parseDouble(getEnv().exec(instruction)),Double.parseDouble(instruction),DELTA);
     }
 
-    @Then("The result should be like ")
-    public void resultShouldBeLike() {
-        assertEquals(env.getMemory().get("_").getValue(),1);
+    @ParameterizedTest(name = "Test variables recognition: {0}")
+    @DisplayName("Should return the value of variable")
+    @CsvSource(value = {"A=5,5","_=-3,3","AsA345=-0.23,-0.23"})
+    public void VariableAssignTest(String instruction,String output){
+        assertEquals(Double.parseDouble(getEnv().exec(instruction)),Double.parseDouble(output),DELTA);
     }
 }
+

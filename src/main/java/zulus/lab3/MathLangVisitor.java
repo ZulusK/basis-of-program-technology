@@ -94,7 +94,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     // expression | assign
     @Override
     public Variable visitPrint(MathLangParser.PrintContext ctx) {
-        return new Variable<>(visit(ctx.expression()).getValue().toString(), String.class);
+        return new Variable<>(visit(ctx.expression()).applySign().getValue().toString(), String.class);
     }
 
     // expression + expression

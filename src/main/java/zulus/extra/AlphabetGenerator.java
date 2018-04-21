@@ -65,7 +65,7 @@ public class AlphabetGenerator {
         pairs.sort(Comparator.comparing(e -> e.getKey()));
         double lastValue = 0;
         for (int i = 0; i < pairs.size(); i++) {
-            cdf.add(Map.entry(pairs.get(i).getKey(), pairs.get(i).getValue() + lastValue));
+            cdf.add(new AbstractMap.SimpleEntry(pairs.get(i).getKey(), pairs.get(i).getValue() + lastValue));
             lastValue += pairs.get(i).getValue();
         }
         return cdf;

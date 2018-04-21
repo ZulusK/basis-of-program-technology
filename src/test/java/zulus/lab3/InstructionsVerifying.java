@@ -10,8 +10,12 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 
 
-public class Story extends JUnitStory {
+public class InstructionsVerifying extends JUnitStory {
 
+    public InstructionsVerifying(){
+        super();
+        this.configuredEmbedder().candidateSteps().add(new MathInstructionsStep());
+    }
     // Here we specify the configuration, starting from default MostUsefulConfiguration, and changing only what is needed
     @Override
     public Configuration configuration() {
@@ -26,6 +30,6 @@ public class Story extends JUnitStory {
     @Override
     public InjectableStepsFactory stepsFactory() {
         // varargs, can have more that one steps classes
-        return new InstanceStepsFactory(configuration(), new MathLangTest());
+        return new InstanceStepsFactory(configuration(), new MathInstructionsStep());
     }
 }

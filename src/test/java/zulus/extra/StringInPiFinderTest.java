@@ -8,11 +8,14 @@ import org.junit.jupiter.api.Disabled;
 
 public class StringInPiFinderTest {
     @Test
+    @Disabled
+
     public void emptyStringTest() {
         assertEquals(-1, StringInPiFinder.search(null));
     }
 
     @Test
+    @Disabled
     public void matchAtStartOfPiTest() {
         assertEquals(0, StringInPiFinder.search("1"));
         assertEquals(0, StringInPiFinder.search("14"));
