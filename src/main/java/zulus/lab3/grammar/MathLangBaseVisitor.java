@@ -1,7 +1,8 @@
-// Generated from /home/zulus/projects/basis-of-program-technology/src/main/antlr4/MathLang.g4 by ANTLR 4.7
+// Generated from MathLang.g4 by ANTLR 4.3
 
     package zulus.lab3.grammar;
 
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -19,117 +20,133 @@ public class MathLangBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitScientific(MathLangParser.ScientificContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInit(@NotNull MathLangParser.InitContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitVariable(MathLangParser.VariableContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPlainAtom(@NotNull MathLangParser.PlainAtomContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArray(MathLangParser.ArrayContext ctx) { return visitChildren(ctx); }
+	@Override public T visitScientific(@NotNull MathLangParser.ScientificContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMatrix(MathLangParser.MatrixContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInvertSignedAtom(@NotNull MathLangParser.InvertSignedAtomContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAtom(MathLangParser.AtomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDivExpression(@NotNull MathLangParser.DivExpressionContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPlainAtom(MathLangParser.PlainAtomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMatrix(@NotNull MathLangParser.MatrixContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInvertSignedAtom(MathLangParser.InvertSignedAtomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSubtractExpression(@NotNull MathLangParser.SubtractExpressionContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFactor(MathLangParser.FactorContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrint(@NotNull MathLangParser.PrintContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSubtractExpression(MathLangParser.SubtractExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitArray(@NotNull MathLangParser.ArrayContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPlainFactor(MathLangParser.PlainFactorContext ctx) { return visitChildren(ctx); }
+	@Override public T visitVariable(@NotNull MathLangParser.VariableContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSumExpression(MathLangParser.SumExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPlainFactor(@NotNull MathLangParser.PlainFactorContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDivExpression(MathLangParser.DivExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSumExpression(@NotNull MathLangParser.SumExpressionContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDeterminantExpression(MathLangParser.DeterminantExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAtom(@NotNull MathLangParser.AtomContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMultExpression(MathLangParser.MultExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFactor(@NotNull MathLangParser.FactorContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAssign(MathLangParser.AssignContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDeterminantExpression(@NotNull MathLangParser.DeterminantExpressionContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrint(MathLangParser.PrintContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMultExpression(@NotNull MathLangParser.MultExpressionContext ctx) { return visitChildren(ctx); }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInit(MathLangParser.InitContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAssign(@NotNull MathLangParser.AssignContext ctx) { return visitChildren(ctx); }
 }

@@ -157,7 +157,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         if (arrays.stream().anyMatch(x -> x.size() != first.size())) {
             throw new ParseCancellationException("Matrix definition includes lists with different length");
         }
-        return new Matrix(arrays.stream().map(x -> x.stream().toArray(Double[]::new)).toArray(Double[][]::new));
+        return new Matrix(arrays.stream().map(x -> x.stream().toArray(Double[]::new)).toArray(double[][]::new));
     }
 
     @Override

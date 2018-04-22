@@ -41,28 +41,15 @@ public class Matrix {
             }
         }
     }
-
-    public Matrix(Double[][] src) {
-        this(src.length, src[0].length);
-        int rows = src.length;
-        int columns = src[0].length;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                _data[i][j] = src[i][j];
-            }
-        }
-    }
-
     /**
      * create new  matrix from 2-dimension array
      *
-     * @param array - base array
+     * @param src - base array
      */
-    public Matrix(double[][] array) {
-        this(array.length, array[0].length);
-        this.copyArray(array, _data);
+    public Matrix(double[][] src) {
+        this(src.length, src[0].length);
+        this.copyArray(src, _data);
     }
-
     /**
      * get rows number
      *
@@ -148,7 +135,6 @@ public class Matrix {
             }
         }
     }
-
     /**
      * deduct one row from other
      *
