@@ -41,6 +41,20 @@ public class Matrix {
             }
         }
     }
+
+    public static Matrix fromDoubleMatrix(Double[][] data) {
+        if (data.length == 0 || data[0].length == 0) {
+            throw new IllegalArgumentException("Matrix cannot be empty");
+        }
+        double[][] src = new double[data.length][data[0].length];
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[0].length; j++) {
+                src[i][j] = data[i][j];
+            }
+        }
+        return new Matrix(src);
+    }
+
     /**
      * create new  matrix from 2-dimension array
      *
@@ -50,6 +64,7 @@ public class Matrix {
         this(src.length, src[0].length);
         this.copyArray(src, _data);
     }
+
     /**
      * get rows number
      *
@@ -135,6 +150,7 @@ public class Matrix {
             }
         }
     }
+
     /**
      * deduct one row from other
      *
