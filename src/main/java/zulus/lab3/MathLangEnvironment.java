@@ -23,16 +23,18 @@ public class MathLangEnvironment {
         this._visitor = new MathLangVisitor(_memory);
     }
 
-    private Variable exec(CharStream stream) throws MathLangParsingException {
+    private Variable run(String command) throws MathLangParsingException {
+        CharStream stream=CharStreams.fromString(command);
         try {
             MathLangLexer lexer = new MathLangLexer(stream);
-            lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);
+            lexer.removeErrorListeners();
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             MathLangParser parser = new MathLangParser(tokens);
-            parser.setErrorHandler(new BailErrorStrategy());
+            parser.removeErrorListeners();
+            parser.addErrorListener(new ErrorListener());
             ParseTree tree = parser.init();
             return _visitor.visit(tree);
-        } catch (ParseCancellationException|RecognitionException exc) {
+        } catch (ParseCancellationException|RecognitionException|ParseException exc) {
             throw new MathLangParsingException(exc);
         }
     }
@@ -46,7 +48,7 @@ public class MathLangEnvironment {
             String output = "";
             Variable result = null;
             try {
-                result = exec(CharStreams.fromString(command));
+                result = run(command);
                 output = result.getValue().toString();
             } catch (MathLangParsingException exc) {
                 output = exc.toString();
@@ -58,5 +60,24 @@ public class MathLangEnvironment {
     @Override
     public String toString() {
         return "MathLang ENV: \n" + _memory.entrySet().stream().map((Map.Entry x) -> String.format("%s:%s", x.getKey(), x.getValue())).collect(Collectors.joining("\n"));
+    }
+}
+
+class ParseException extends RuntimeException {
+    int line;
+    public ParseException(String message, Throwable cause, int line) {
+        super(message, cause);
+        this.line = line;
+    }
+}
+class ErrorListener extends BaseErrorListener {
+    @Override
+    public void syntaxError(Recognizer<?, ?> recognizer,
+                            Object offendingSymbol,
+                            int line,
+                            int charPositionInLine,
+                            String msg,
+                            RecognitionException e) {
+        throw new ParseException(msg, e, line);
     }
 }

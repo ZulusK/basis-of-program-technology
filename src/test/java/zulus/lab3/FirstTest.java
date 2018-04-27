@@ -17,9 +17,9 @@ import java.util.List;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 
 
-public class MatrixesStoredInDb extends JUnitStories {
+public class FirstTest extends JUnitStories {
 
-    public MatrixesStoredInDb(){
+    public FirstTest(){
         super();
         this.configuredEmbedder().candidateSteps().add(new StoreMatrixInDBStep());
     }
