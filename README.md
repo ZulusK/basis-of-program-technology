@@ -12,6 +12,9 @@ The repository stores the source code of laboratory works on `The basics of prog
 ### Technologies
 * Java
 * Maven
+* ANTLRv4
+* JBehave
+* JUnit
 ### Lab1
 - Create a class to work with matrices, which is a wrapper of two-dimensionalth array of real numbers.
 - Describe in class the methods needed for in-data realization, data output, Equals, toString methods:
@@ -27,6 +30,10 @@ calculations and methods of Equals, toString
 - Write a program in the programming language Java, which builds a finite automaton for recognition of a string given by a regular expression
 - Describe the parametric modular tests and test the program on different sets of input data.   
 __Regex__: \{(\d+|[A-Z]+)\}
+### Lab2
+1) write a syntactic analyzer for Java programming, a language that is valid
+the commander and vice-president of the matrix, realizing at the lab 1 
+2) Test the program, usign BDD testing (JBehave)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
