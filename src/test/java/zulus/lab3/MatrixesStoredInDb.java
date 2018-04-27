@@ -17,11 +17,11 @@ import java.util.List;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 
 
-public class InstructionsVerifying extends JUnitStories {
+public class MatrixesStoredInDb extends JUnitStories {
 
-    public InstructionsVerifying(){
+    public MatrixesStoredInDb(){
         super();
-        this.configuredEmbedder().candidateSteps().add(new MathInstructionsStep());
+        this.configuredEmbedder().candidateSteps().add(new StoreMatrixInDBStep());
     }
 
     @Override
@@ -37,21 +37,11 @@ public class InstructionsVerifying extends JUnitStories {
                         .withFailureTraceCompression(true));
     }
 
-    // Here we specify the configuration, starting from default MostUsefulConfiguration, and changing only what is needed
-//    @Override
-//    public Configuration configuration() {
-//        return new MostUsefulConfiguration()
-//                // where to find the stories
-//                .useStoryLoader(new LoadFromClasspath(this.getClass()))
-//                // CONSOLE and TXT reporting
-//                .useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats().withFormats(Format.CONSOLE));
-//    }
-
     // Here we specify the steps classes
     @Override
     public InjectableStepsFactory stepsFactory() {
         // varargs, can have more that one steps classes
-        return new InstanceStepsFactory(configuration(), new MathInstructionsStep());
+        return new InstanceStepsFactory(configuration(), new StoreMatrixInDBStep());
     }
 
     @Override

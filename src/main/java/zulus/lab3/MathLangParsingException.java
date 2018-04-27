@@ -7,6 +7,6 @@ public class MathLangParsingException extends Exception {
 
     @Override
     public String toString() {
-        return String.format("ERROR. %s", super.getCause().getMessage());
+        return String.format("ERROR. %s", getCause().getMessage());
     }
 }

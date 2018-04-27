@@ -13,6 +13,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface MathLangVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link MathLangParser#pi}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPi(MathLangParser.PiContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MathLangParser#scientific}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

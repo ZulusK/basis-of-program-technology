@@ -26,17 +26,13 @@ public class MathLangEnvironment {
     private Variable exec(CharStream stream) throws MathLangParsingException {
         try {
             MathLangLexer lexer = new MathLangLexer(stream);
-            lexer.removeErrorListeners();
             lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             MathLangParser parser = new MathLangParser(tokens);
+            parser.setErrorHandler(new BailErrorStrategy());
             ParseTree tree = parser.init();
             return _visitor.visit(tree);
-        } catch (ParseCancellationException exc) {
-//            System.err.println("1   " + exc);
-            throw new MathLangParsingException(exc);
-        } catch (RecognitionException exc) {
-//            System.err.println("2   " + exc);
+        } catch (ParseCancellationException|RecognitionException exc) {
             throw new MathLangParsingException(exc);
         }
     }
@@ -44,6 +40,9 @@ public class MathLangEnvironment {
     public String exec(String command) {
         if (command == null) throw new IllegalArgumentException("Argument 'command' must be not-null value");
         else {
+            if(!command.endsWith("\n")){
+                command+="\n";
+            }
             String output = "";
             Variable result = null;
             try {
@@ -60,22 +59,4 @@ public class MathLangEnvironment {
     public String toString() {
         return "MathLang ENV: \n" + _memory.entrySet().stream().map((Map.Entry x) -> String.format("%s:%s", x.getKey(), x.getValue())).collect(Collectors.joining("\n"));
     }
-//    public String exec(InputStream input) {
-//        if (input == null) throw new IllegalArgumentException("Argument 'input' must be not-null value");
-//        else {
-//            String output = "";
-//            Variable result = null;
-//            try {
-//                result = exec(CharStreams.fromStream(input));
-//                _memory.put("_", result);
-//                output = result.getValue().toString();
-//            } catch (IOException exc) {
-//                output = String.format("ERROR. %s", exc.getMessage());
-//            } catch (MathLangParsingException exc) {
-//                System.out.println(exc);
-//                output = exc.toString();
-//            }
-//            return output;
-//        }
-//    }
 }

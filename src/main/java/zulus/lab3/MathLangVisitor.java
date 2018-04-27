@@ -71,11 +71,16 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             return visit(ctx.matrix());
         } else if (ctx.array() != null) {
             return visit(ctx.array());
+        } else if (ctx.pi() != null) {
+            return visit(ctx.pi());
         } else {
             throw new ParseCancellationException(String.format("Cannot recognize type of atom"));
         }
     }
-
+    @Override
+    public Variable visitPi(MathLangParser.PiContext ctx){
+        return new Variable<>(Math.PI, Double.class);
+    }
     // +atom |- atom | atom
     @Override
     public Variable visitInvertSignedAtom(MathLangParser.InvertSignedAtomContext ctx) {

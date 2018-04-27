@@ -8,22 +8,23 @@ import org.jbehave.core.steps.Steps;
 
 import static org.junit.Assert.assertEquals;
 
-public class MathInstructionsStep extends Steps {
+public class StoreMatrixInDBStep extends Steps {
     MathLangEnvironment env;
     String output = "";
 
-    @Given("an empty environment command in string")
+    @Given("String with variable definition")
     public void setuptEnv() {
         env = new MathLangEnvironment();
     }
 
-    @When("I execute command $input")
+    @When("I execute instruction $input")
     public void runParsing(String input) {
-        output = env.exec(input);
+        output = env.exec(input+"\n");
     }
 
     @Then("I receive $result")
-    public void resultShouldBeLike(String result) {
-        assertEquals(output, result);
+    public void resultShouldBeLike(String result)
+    {
+        assertEquals(output, result.replace("\\n","\n"));
     }
 }

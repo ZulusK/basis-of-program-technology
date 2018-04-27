@@ -3,6 +3,10 @@ grammar MathLang;
     package zulus.lab3.grammar;
 }
 
+END
+   :    EOF
+   |    '\n'
+   ;
 fragment DOUBLE
    :    ('0' .. '9') + ('.' ('0' .. '9') +)?
    ;
@@ -65,6 +69,9 @@ RFIGURE
 MODULE
     :   '|'
     ;
+pi
+    : PI
+    ;
 scientific
     :   SCIENTIFIC_NUMBER
     ;
@@ -84,6 +91,7 @@ atom
     |   LPAREN expression RPAREN
     |   matrix
     |   array
+    |   pi
     ;
 
 signedAtom
@@ -107,8 +115,8 @@ assign
     :   VAR EQUAL expression
     ;
 print
-    :    expression NEWLINE?
-    |    assign NEWLINE?
+    :    expression END
+    |    assign END
     ;
 init
     :   print

@@ -19,6 +19,13 @@ public class MathLangBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitPi(MathLangParser.PiContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitScientific(MathLangParser.ScientificContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

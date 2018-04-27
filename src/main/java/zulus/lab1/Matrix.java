@@ -310,7 +310,7 @@ public class Matrix {
     }
 
     public String toString() {
-        String s = String.format("zulus.lab1.Matrix %dx%d", getRows(), getColumns());
+        String s = String.format("Matrix %dx%d", getRows(), getColumns());
         for (double[] row : _data) {
             s += String.format("\n%s", Arrays.toString(row));
         }

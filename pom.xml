@@ -32,25 +32,25 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-maven-plugin</artifactId>
-                <version>4.3</version>
-                <configuration>
-                    <listener>true</listener>
-                    <visitor>true</visitor>
-                    <sourceDirectory>src/main/antlr4</sourceDirectory>
-                    <outputDirectory>src/main/java/zulus/lab3/grammar</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>antlr</id>
-                        <goals>
-                            <goal>antlr4</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.antlr</groupId>-->
+                <!--<artifactId>antlr4-maven-plugin</artifactId>-->
+                <!--<version>4.7.1</version>-->
+                <!--<configuration>-->
+                    <!--<listener>true</listener>-->
+                    <!--<visitor>true</visitor>-->
+                    <!--<sourceDirectory>src/main/antlr4</sourceDirectory>-->
+                    <!--<outputDirectory>src/main/java/zulus/lab3/grammar</outputDirectory>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>antlr</id>-->
+                        <!--<goals>-->
+                            <!--<goal>antlr4</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
