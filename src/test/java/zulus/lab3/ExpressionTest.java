@@ -16,12 +16,11 @@ import java.util.List;
 
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 
+public class ExpressionTest extends JUnitStories {
 
-public class FirstTest extends JUnitStories {
-
-    public FirstTest(){
+    public ExpressionTest(){
         super();
-        this.configuredEmbedder().candidateSteps().add(new StoreMatrixInDBStep());
+        this.configuredEmbedder().candidateSteps().add(new Stepper());
     }
 
     @Override
@@ -41,7 +40,7 @@ public class FirstTest extends JUnitStories {
     @Override
     public InjectableStepsFactory stepsFactory() {
         // varargs, can have more that one steps classes
-        return new InstanceStepsFactory(configuration(), new StoreMatrixInDBStep());
+        return new InstanceStepsFactory(configuration(), new Stepper());
     }
 
     @Override

@@ -217,30 +217,45 @@ public class MathLangParser extends Parser {
 		enterRule(_localctx, 6, RULE_array);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(30);
-			match(LFIGURE);
-			setState(31);
-			expression(0);
-			setState(36);
+			setState(43);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==T__0) {
+			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
 				{
-				{
-				setState(32);
-				match(T__0);
-				setState(33);
+				setState(30);
+				match(LFIGURE);
+				setState(31);
 				expression(0);
-				}
-				}
-				setState(38);
+				setState(36);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			}
-			setState(39);
-			match(RFIGURE);
+				while (_la==T__0) {
+					{
+					{
+					setState(32);
+					match(T__0);
+					setState(33);
+					expression(0);
+					}
+					}
+					setState(38);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				setState(39);
+				match(RFIGURE);
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(41);
+				match(LFIGURE);
+				setState(42);
+				match(RFIGURE);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -279,30 +294,45 @@ public class MathLangParser extends Parser {
 		enterRule(_localctx, 8, RULE_matrix);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(41);
-			match(LBRACKET);
-			setState(42);
-			expression(0);
-			setState(47);
+			setState(58);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==T__0) {
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
 				{
-				{
-				setState(43);
-				match(T__0);
-				setState(44);
+				setState(45);
+				match(LBRACKET);
+				setState(46);
 				expression(0);
-				}
-				}
-				setState(49);
+				setState(51);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			}
-			setState(50);
-			match(RBRACKET);
+				while (_la==T__0) {
+					{
+					{
+					setState(47);
+					match(T__0);
+					setState(48);
+					expression(0);
+					}
+					}
+					setState(53);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				setState(54);
+				match(RBRACKET);
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(56);
+				match(LBRACKET);
+				setState(57);
+				match(RBRACKET);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -352,52 +382,52 @@ public class MathLangParser extends Parser {
 		AtomContext _localctx = new AtomContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_atom);
 		try {
-			setState(61);
+			setState(69);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SCIENTIFIC_NUMBER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(52);
+				setState(60);
 				scientific();
 				}
 				break;
 			case VAR:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(53);
+				setState(61);
 				variable();
 				}
 				break;
 			case LPAREN:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(54);
+				setState(62);
 				match(LPAREN);
-				setState(55);
+				setState(63);
 				expression(0);
-				setState(56);
+				setState(64);
 				match(RPAREN);
 				}
 				break;
 			case LBRACKET:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(58);
+				setState(66);
 				matrix();
 				}
 				break;
 			case LFIGURE:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(59);
+				setState(67);
 				array();
 				}
 				break;
 			case PI:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(60);
+				setState(68);
 				pi();
 				}
 				break;
@@ -459,16 +489,16 @@ public class MathLangParser extends Parser {
 		SignedAtomContext _localctx = new SignedAtomContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_signedAtom);
 		try {
-			setState(68);
+			setState(76);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case PLUS:
 				_localctx = new PlainAtomContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(63);
+				setState(71);
 				match(PLUS);
-				setState(64);
+				setState(72);
 				signedAtom();
 				}
 				break;
@@ -476,9 +506,9 @@ public class MathLangParser extends Parser {
 				_localctx = new InvertSignedAtomContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(65);
+				setState(73);
 				match(MINUS);
-				setState(66);
+				setState(74);
 				signedAtom();
 				}
 				break;
@@ -491,7 +521,7 @@ public class MathLangParser extends Parser {
 				_localctx = new PlainAtomContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(67);
+				setState(75);
 				atom();
 				}
 				break;
@@ -535,16 +565,16 @@ public class MathLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(70);
+			setState(78);
 			signedAtom();
-			setState(73);
+			setState(81);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				{
-				setState(71);
+				setState(79);
 				match(POW);
-				setState(72);
+				setState(80);
 				signedAtom();
 				}
 				break;
@@ -671,7 +701,7 @@ public class MathLangParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(81);
+			setState(89);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__1:
@@ -680,11 +710,11 @@ public class MathLangParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(76);
+				setState(84);
 				match(T__1);
-				setState(77);
+				setState(85);
 				expression(0);
-				setState(78);
+				setState(86);
 				match(RPAREN);
 				}
 				break;
@@ -700,7 +730,7 @@ public class MathLangParser extends Parser {
 				_localctx = new PlainFactorContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(80);
+				setState(88);
 				factor();
 				}
 				break;
@@ -708,26 +738,26 @@ public class MathLangParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(97);
+			setState(105);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(95);
+					setState(103);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 					case 1:
 						{
 						_localctx = new SumExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(83);
+						setState(91);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(84);
+						setState(92);
 						match(PLUS);
-						setState(85);
+						setState(93);
 						expression(7);
 						}
 						break;
@@ -735,11 +765,11 @@ public class MathLangParser extends Parser {
 						{
 						_localctx = new SubtractExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(86);
+						setState(94);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(87);
+						setState(95);
 						match(MINUS);
-						setState(88);
+						setState(96);
 						expression(6);
 						}
 						break;
@@ -747,11 +777,11 @@ public class MathLangParser extends Parser {
 						{
 						_localctx = new DivExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(89);
+						setState(97);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(90);
+						setState(98);
 						match(DIV);
-						setState(91);
+						setState(99);
 						expression(5);
 						}
 						break;
@@ -759,20 +789,20 @@ public class MathLangParser extends Parser {
 						{
 						_localctx = new MultExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(92);
+						setState(100);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(93);
+						setState(101);
 						match(MULT);
-						setState(94);
+						setState(102);
 						expression(4);
 						}
 						break;
 					}
 					} 
 				}
-				setState(99);
+				setState(107);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
 			}
 			}
 		}
@@ -810,11 +840,11 @@ public class MathLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(100);
+			setState(108);
 			match(VAR);
-			setState(101);
+			setState(109);
 			match(EQUAL);
-			setState(102);
+			setState(110);
 			expression(0);
 			}
 		}
@@ -852,24 +882,24 @@ public class MathLangParser extends Parser {
 		PrintContext _localctx = new PrintContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_print);
 		try {
-			setState(110);
+			setState(118);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(104);
+				setState(112);
 				expression(0);
-				setState(105);
+				setState(113);
 				match(END);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(107);
+				setState(115);
 				assign();
-				setState(108);
+				setState(116);
 				match(END);
 				}
 				break;
@@ -907,7 +937,7 @@ public class MathLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(112);
+			setState(120);
 			print();
 			}
 		}
@@ -944,34 +974,36 @@ public class MathLangParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30u\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30}\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
 		"\f\t\f\4\r\t\r\3\2\3\2\3\3\3\3\3\4\3\4\3\5\3\5\3\5\3\5\7\5%\n\5\f\5\16"+
-		"\5(\13\5\3\5\3\5\3\6\3\6\3\6\3\6\7\6\60\n\6\f\6\16\6\63\13\6\3\6\3\6\3"+
-		"\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7@\n\7\3\b\3\b\3\b\3\b\3\b\5\bG\n"+
-		"\b\3\t\3\t\3\t\5\tL\n\t\3\n\3\n\3\n\3\n\3\n\3\n\5\nT\n\n\3\n\3\n\3\n\3"+
-		"\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\7\nb\n\n\f\n\16\ne\13\n\3\13\3\13\3"+
-		"\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\5\fq\n\f\3\r\3\r\3\r\2\3\22\16\2\4\6"+
-		"\b\n\f\16\20\22\24\26\30\2\2\2x\2\32\3\2\2\2\4\34\3\2\2\2\6\36\3\2\2\2"+
-		"\b \3\2\2\2\n+\3\2\2\2\f?\3\2\2\2\16F\3\2\2\2\20H\3\2\2\2\22S\3\2\2\2"+
-		"\24f\3\2\2\2\26p\3\2\2\2\30r\3\2\2\2\32\33\7\7\2\2\33\3\3\2\2\2\34\35"+
-		"\7\6\2\2\35\5\3\2\2\2\36\37\7\n\2\2\37\7\3\2\2\2 !\7\26\2\2!&\5\22\n\2"+
-		"\"#\7\3\2\2#%\5\22\n\2$\"\3\2\2\2%(\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\')\3"+
-		"\2\2\2(&\3\2\2\2)*\7\27\2\2*\t\3\2\2\2+,\7\24\2\2,\61\5\22\n\2-.\7\3\2"+
-		"\2.\60\5\22\n\2/-\3\2\2\2\60\63\3\2\2\2\61/\3\2\2\2\61\62\3\2\2\2\62\64"+
-		"\3\2\2\2\63\61\3\2\2\2\64\65\7\25\2\2\65\13\3\2\2\2\66@\5\4\3\2\67@\5"+
-		"\6\4\289\7\22\2\29:\5\22\n\2:;\7\23\2\2;@\3\2\2\2<@\5\n\6\2=@\5\b\5\2"+
-		">@\5\2\2\2?\66\3\2\2\2?\67\3\2\2\2?8\3\2\2\2?<\3\2\2\2?=\3\2\2\2?>\3\2"+
-		"\2\2@\r\3\2\2\2AB\7\r\2\2BG\5\16\b\2CD\7\17\2\2DG\5\16\b\2EG\5\f\7\2F"+
-		"A\3\2\2\2FC\3\2\2\2FE\3\2\2\2G\17\3\2\2\2HK\5\16\b\2IJ\7\f\2\2JL\5\16"+
-		"\b\2KI\3\2\2\2KL\3\2\2\2L\21\3\2\2\2MN\b\n\1\2NO\7\4\2\2OP\5\22\n\2PQ"+
-		"\7\23\2\2QT\3\2\2\2RT\5\20\t\2SM\3\2\2\2SR\3\2\2\2Tc\3\2\2\2UV\f\b\2\2"+
-		"VW\7\r\2\2Wb\5\22\n\tXY\f\7\2\2YZ\7\17\2\2Zb\5\22\n\b[\\\f\6\2\2\\]\7"+
-		"\21\2\2]b\5\22\n\7^_\f\5\2\2_`\7\20\2\2`b\5\22\n\6aU\3\2\2\2aX\3\2\2\2"+
-		"a[\3\2\2\2a^\3\2\2\2be\3\2\2\2ca\3\2\2\2cd\3\2\2\2d\23\3\2\2\2ec\3\2\2"+
-		"\2fg\7\n\2\2gh\7\16\2\2hi\5\22\n\2i\25\3\2\2\2jk\5\22\n\2kl\7\5\2\2lq"+
-		"\3\2\2\2mn\5\24\13\2no\7\5\2\2oq\3\2\2\2pj\3\2\2\2pm\3\2\2\2q\27\3\2\2"+
-		"\2rs\5\26\f\2s\31\3\2\2\2\13&\61?FKSacp";
+		"\5(\13\5\3\5\3\5\3\5\3\5\5\5.\n\5\3\6\3\6\3\6\3\6\7\6\64\n\6\f\6\16\6"+
+		"\67\13\6\3\6\3\6\3\6\3\6\5\6=\n\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7"+
+		"\5\7H\n\7\3\b\3\b\3\b\3\b\3\b\5\bO\n\b\3\t\3\t\3\t\5\tT\n\t\3\n\3\n\3"+
+		"\n\3\n\3\n\3\n\5\n\\\n\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3"+
+		"\n\7\nj\n\n\f\n\16\nm\13\n\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f"+
+		"\5\fy\n\f\3\r\3\r\3\r\2\3\22\16\2\4\6\b\n\f\16\20\22\24\26\30\2\2\2\u0082"+
+		"\2\32\3\2\2\2\4\34\3\2\2\2\6\36\3\2\2\2\b-\3\2\2\2\n<\3\2\2\2\fG\3\2\2"+
+		"\2\16N\3\2\2\2\20P\3\2\2\2\22[\3\2\2\2\24n\3\2\2\2\26x\3\2\2\2\30z\3\2"+
+		"\2\2\32\33\7\7\2\2\33\3\3\2\2\2\34\35\7\6\2\2\35\5\3\2\2\2\36\37\7\n\2"+
+		"\2\37\7\3\2\2\2 !\7\26\2\2!&\5\22\n\2\"#\7\3\2\2#%\5\22\n\2$\"\3\2\2\2"+
+		"%(\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\')\3\2\2\2(&\3\2\2\2)*\7\27\2\2*.\3\2"+
+		"\2\2+,\7\26\2\2,.\7\27\2\2- \3\2\2\2-+\3\2\2\2.\t\3\2\2\2/\60\7\24\2\2"+
+		"\60\65\5\22\n\2\61\62\7\3\2\2\62\64\5\22\n\2\63\61\3\2\2\2\64\67\3\2\2"+
+		"\2\65\63\3\2\2\2\65\66\3\2\2\2\668\3\2\2\2\67\65\3\2\2\289\7\25\2\29="+
+		"\3\2\2\2:;\7\24\2\2;=\7\25\2\2</\3\2\2\2<:\3\2\2\2=\13\3\2\2\2>H\5\4\3"+
+		"\2?H\5\6\4\2@A\7\22\2\2AB\5\22\n\2BC\7\23\2\2CH\3\2\2\2DH\5\n\6\2EH\5"+
+		"\b\5\2FH\5\2\2\2G>\3\2\2\2G?\3\2\2\2G@\3\2\2\2GD\3\2\2\2GE\3\2\2\2GF\3"+
+		"\2\2\2H\r\3\2\2\2IJ\7\r\2\2JO\5\16\b\2KL\7\17\2\2LO\5\16\b\2MO\5\f\7\2"+
+		"NI\3\2\2\2NK\3\2\2\2NM\3\2\2\2O\17\3\2\2\2PS\5\16\b\2QR\7\f\2\2RT\5\16"+
+		"\b\2SQ\3\2\2\2ST\3\2\2\2T\21\3\2\2\2UV\b\n\1\2VW\7\4\2\2WX\5\22\n\2XY"+
+		"\7\23\2\2Y\\\3\2\2\2Z\\\5\20\t\2[U\3\2\2\2[Z\3\2\2\2\\k\3\2\2\2]^\f\b"+
+		"\2\2^_\7\r\2\2_j\5\22\n\t`a\f\7\2\2ab\7\17\2\2bj\5\22\n\bcd\f\6\2\2de"+
+		"\7\21\2\2ej\5\22\n\7fg\f\5\2\2gh\7\20\2\2hj\5\22\n\6i]\3\2\2\2i`\3\2\2"+
+		"\2ic\3\2\2\2if\3\2\2\2jm\3\2\2\2ki\3\2\2\2kl\3\2\2\2l\23\3\2\2\2mk\3\2"+
+		"\2\2no\7\n\2\2op\7\16\2\2pq\5\22\n\2q\25\3\2\2\2rs\5\22\n\2st\7\5\2\2"+
+		"ty\3\2\2\2uv\5\24\13\2vw\7\5\2\2wy\3\2\2\2xr\3\2\2\2xu\3\2\2\2y\27\3\2"+
+		"\2\2z{\5\26\f\2{\31\3\2\2\2\r&-\65<GNS[ikx";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

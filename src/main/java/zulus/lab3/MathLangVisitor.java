@@ -77,10 +77,12 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             throw new ParseCancellationException(String.format("Cannot recognize type of atom"));
         }
     }
+
     @Override
-    public Variable visitPi(MathLangParser.PiContext ctx){
+    public Variable visitPi(MathLangParser.PiContext ctx) {
         return new Variable<>(Math.PI, Double.class);
     }
+
     // +atom |- atom | atom
     @Override
     public Variable visitInvertSignedAtom(MathLangParser.InvertSignedAtomContext ctx) {
@@ -111,7 +113,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             throw new ParseCancellationException("Invalid operation form. It's a binary operation");
         }
         if (!left.getValueType().equals(right.getValueType())) {
-            throw new ParseCancellationException(String.format("SUM cannot be applied to operands of type %s and %s", left.getValueType().getCanonicalName(), right.getValueType().getCanonicalName()));
+            throw new ParseCancellationException(String.format("SUM cannot be applied to operands of type %s and %s", left.getValueType().getSimpleName(), right.getValueType().getSimpleName()));
         }
         try {
             if (left.getValueType().equals(Double.class)) {
@@ -126,7 +128,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         } catch (IllegalArgumentException | ConvertationException exc) {
             throw new ParseCancellationException("SUM cannot be applied:" + exc.getMessage());
         }
-        throw new ParseCancellationException(String.format("SUM cannot be applied to operands of type %s and %s", left.getValueType().getCanonicalName(), right.getValueType().getCanonicalName()));
+        throw new ParseCancellationException(String.format("SUM cannot be applied to operands of type %s and %s", left.getValueType().getSimpleName(), right.getValueType().getSimpleName()));
     }
 
     // expression - expression
@@ -138,7 +140,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             throw new ParseCancellationException("Invalid operation form. It's a binary operation");
         }
 //        if (!left.getValueType().equals(right.getValueType())) {
-//            throw new ParseCancellationException(String.format("SUBTRACT cannot be applied to operands of type %s and %s", left.getValueType().getCanonicalName(), right.getValueType().getCanonicalName()));
+//            throw new ParseCancellationException(String.format("SUBTRACT cannot be applied to operands of type %s and %s", left.getValueType().getSimpleName(), right.getValueType().getSimpleName()));
 //        }
         try {
             if (left.getValueType().equals(Double.class)) {
@@ -153,7 +155,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         } catch (ConvertationException | IllegalArgumentException exc) {
             throw new ParseCancellationException("SUBTRACT cannot be applied:" + exc.getMessage());
         }
-        throw new ParseCancellationException(String.format("SUBTRACT cannot be applied to operands of type %s and %s", left.getValueType().getCanonicalName(), right.getValueType().getCanonicalName()));
+        throw new ParseCancellationException(String.format("SUBTRACT cannot be applied to operands of type %s and %s", left.getValueType().getSimpleName(), right.getValueType().getSimpleName()));
     }
 
     private Matrix getMatrixFromLists(List<Variable> members) {
@@ -185,8 +187,10 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
     public Variable visitMatrix(MathLangParser.MatrixContext ctx) {
         // collect all members
         List<Variable> members = ctx.expression().stream().map(this::visit).collect(Collectors.toList());
+        if (members.size() == 0 || members.get(0) == null)
+            throw new ParseCancellationException("Matrix definition is empty");
         Variable first = members.get(0);
-        if (first == null) throw new ParseCancellationException("Matrix definition is empty");
+
         // check, all members has the same type
         if (members.stream().anyMatch(x -> !x.getValueType().equals(first.getValueType()))) {
             throw new ParseCancellationException("Matrix definition includes non-identical members");
@@ -198,7 +202,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             // check all members are Lists
             return new Variable<>(getMatrixFromLists(members), Matrix.class);
         } else {
-            throw new ParseCancellationException(String.format("Matrix definition includes unauthorized types: %s", first.getValueType().getCanonicalName()));
+            throw new ParseCancellationException(String.format("Matrix definition includes illegal types: %s", first.getValueType().getSimpleName()));
         }
     }
 
@@ -222,18 +226,18 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
                 Double val = Converter.convertToDouble(var);
                 return new Variable<>(matrix.multiply((Double) var.getValue()), Matrix.class);
             } catch (ConvertationException exc) {
-                throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getCanonicalName(), var.getValueType().getCanonicalName()));
+                throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getSimpleName(), var.getValueType().getSimpleName()));
             }
         } else {
-            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getCanonicalName(), var.getValueType().getCanonicalName()));
+            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getSimpleName(), var.getValueType().getSimpleName()));
         }
     }
 
-    private Variable multiplyArrayByDouble(List<Variable> list, Double val) {
-        return new Variable<>(list.stream().mapToDouble((Variable x) -> (Double) x.getValue()).map(x -> ((Double) x) * val).boxed().collect(Collectors.toList()), List.class);
+    private Variable multiplyArrayByDouble(List<Double> list, Double val) {
+        return new Variable<>(list.stream().map((Double x) -> ((Double) x) * val).collect(Collectors.toList()), List.class);
     }
 
-    private Variable multiplyArrayByVariable(List<Variable> list, Variable var) {
+    private Variable multiplyArrayByVariable(List<Double> list, Variable var) {
         if (var.getValueType().equals(List.class)) {
             throw new ParseCancellationException("Multiplication of arrays is not supported yet");
         } else if (var.getValueType().equals(Double.class) || var.getValueType().equals(String.class)) {
@@ -241,10 +245,10 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
                 Double val = Converter.convertToDouble(var);
                 return multiplyArrayByDouble(list, val);
             } catch (ConvertationException exc) {
-                throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getCanonicalName(), var.getValueType().getCanonicalName()));
+                throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getSimpleName(), var.getValueType().getSimpleName()));
             }
         } else {
-            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getCanonicalName(), var.getValueType().getCanonicalName()));
+            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", Matrix.class.getSimpleName(), var.getValueType().getSimpleName()));
         }
     }
 
@@ -266,7 +270,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         } else if (right.getValueType().isAssignableFrom(List.class)) {
             return multiplyArrayByVariable((List) right.getValue(), left);
         } else {
-            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", left.getValueType().getCanonicalName(), right.getValueType().getCanonicalName()));
+            throw new ParseCancellationException(String.format("MULT cannot be applied to operands of type %s and %s", left.getValueType().getSimpleName(), right.getValueType().getSimpleName()));
         }
     }
 
@@ -277,16 +281,16 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         } else if (var.getValueType().equals(Double.class) || var.getValueType().equals(String.class)) {
             try {
                 Double val = Converter.convertToDouble(var);
-                return new Variable<>(matrix.multiply(1 / (Double) var.getValue()), Matrix.class);
+                return new Variable<>(matrix.multiply(1 / val), Matrix.class);
             } catch (ConvertationException exc) {
-                throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getCanonicalName(), var.getValueType().getCanonicalName()));
+                throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getSimpleName(), var.getValueType().getSimpleName()));
             }
         } else {
-            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getCanonicalName(), var.getValueType().getCanonicalName()));
+            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getSimpleName(), var.getValueType().getSimpleName()));
         }
     }
 
-    private Variable divArrayByVariable(List<Variable> list, Variable var) {
+    private Variable divArrayByVariable(List<Double> list, Variable var) {
         if (var.getValueType().equals(List.class)) {
             throw new ParseCancellationException("Division of arrays is not allowed");
         } else if (var.getValueType().equals(Double.class) || var.getValueType().equals(String.class)) {
@@ -294,10 +298,10 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
                 Double val = Converter.convertToDouble(var);
                 return multiplyArrayByDouble(list, 1 / val);
             } catch (ConvertationException exc) {
-                throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getCanonicalName(), var.getValueType().getCanonicalName()));
+                throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", List.class.getSimpleName(), var.getValueType().getSimpleName()));
             }
         } else {
-            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", Matrix.class.getCanonicalName(), var.getValueType().getCanonicalName()));
+            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", List.class.getSimpleName(), var.getValueType().getSimpleName()));
         }
     }
 
@@ -315,7 +319,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
         } else if (left.getValueType().isAssignableFrom(List.class)) {
             return divArrayByVariable((List) left.getValue(), right);
         } else {
-            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", left.getValueType().getCanonicalName(), right.getValueType().getCanonicalName()));
+            throw new ParseCancellationException(String.format("DIV cannot be applied to operands of type %s and %s", left.getValueType().getSimpleName(), right.getValueType().getSimpleName()));
         }
     }
 
@@ -327,7 +331,7 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             if (power.getValueType().equals(Double.class) && base.getValueType().equals(Double.class)) {
                 return new Variable<>(Math.pow((Double) base.getValue(), (Double) power.getValue()), Double.class);
             } else {
-                throw new ParseCancellationException(String.format("POW cannot be applied to object of types %s and %s ", base.getValueType().getCanonicalName(), power.getValueType().getCanonicalName()));
+                throw new ParseCancellationException(String.format("POW cannot be applied to object of types %s and %s", base.getValueType().getSimpleName(), power.getValueType().getSimpleName()));
             }
         } else {
             return base;

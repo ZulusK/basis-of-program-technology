@@ -81,9 +81,11 @@ variable
     ;
 array
     :   LFIGURE expression  (',' expression)* RFIGURE
+    |   LFIGURE  RFIGURE
     ;
 matrix
     :   LBRACKET expression (',' expression)* RBRACKET
+    |   LBRACKET  RBRACKET
     ;
 atom
     :   scientific

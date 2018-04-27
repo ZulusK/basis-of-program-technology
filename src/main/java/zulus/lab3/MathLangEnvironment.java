@@ -42,11 +42,11 @@ public class MathLangEnvironment {
     public String exec(String command) {
         if (command == null) throw new IllegalArgumentException("Argument 'command' must be not-null value");
         else {
+            String output = "";
+            Variable result = null;
             if(!command.endsWith("\n")){
                 command+="\n";
             }
-            String output = "";
-            Variable result = null;
             try {
                 result = run(command);
                 output = result.getValue().toString();

@@ -252,7 +252,7 @@ public class Matrix {
      */
     public double determinant() {
         if (!isSquare()) {
-            throw new IllegalArgumentException("zulus.lab1.Matrix is not square");
+            throw new IllegalArgumentException("Matrix is not square");
         } else if (!this._isActualDeterminant) {
             switch (this.getColumns()) {
                 case 1:

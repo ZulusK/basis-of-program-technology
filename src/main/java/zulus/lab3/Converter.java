@@ -22,16 +22,5 @@ public class Converter {
 
     }
 
-    public static Object convert(Variable variable, Class destination) throws ConvertationException {
-        if (destination.isAssignableFrom(String.class)) {
-            return variable.getValue().toString();
-        }
-        if (destination.isAssignableFrom(Double.class)) {
-            return convertToDouble(variable);
-        }
-        if (destination.isAssignableFrom(Matrix.class)) {
-            return convertToMatrix(variable);
-        }
-        throw new ConvertationException(variable.getValueType(), destination);
-    }
+
 }
