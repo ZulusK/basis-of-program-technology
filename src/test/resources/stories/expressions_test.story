@@ -104,3 +104,23 @@ Examples:
 |A3/5|[0.2, 0.4, 0.6000000000000001]|
 |A3/A3|ERROR. Division of arrays is not allowed|
 |A3/Matrix|ERROR. DIV cannot be applied to operands of type ArrayList and Matrix|
+
+
+
+Scenario: user execute Module
+
+Given Storage with result of commands:
+|instruction|
+|M1x1=[-1]|
+|Array={-12,33}|
+|M2x2=[{-1,-2},{3,4}]|
+When I execute instruction <command>
+Then I receive <result>
+
+Examples:
+{valueSeparator=!, headerSeparator=!}
+!command!result!
+!|M1x1|!Matrix 1x1\n[1.0]!
+!|M2x2|!Matrix 2x2\n[1.0, 2.0]\n[3.0, 4.0]!
+!|Array|!ERROR. MODULE cannot be applied to object of type ArrayList!
+!|-4|!4.0!

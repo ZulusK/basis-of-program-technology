@@ -87,6 +87,7 @@ matrix
     :   LBRACKET expression (',' expression)* RBRACKET
     |   LBRACKET  RBRACKET
     ;
+
 atom
     :   scientific
     |   variable
@@ -105,6 +106,7 @@ signedAtom
 factor
     :   signedAtom (POW signedAtom)?
     ;
+
 expression
     :   expression PLUS expression      # SumExpression
     |   expression MINUS expression     # SubtractExpression
@@ -112,6 +114,7 @@ expression
     |   expression MULT expression      # MultExpression
     |   'det('expression')'             # DeterminantExpression
     |   factor                          # PlainFactor
+    |   '|'expression'|'                # ModuleExpression
     ;
 assign
     :   VAR EQUAL expression

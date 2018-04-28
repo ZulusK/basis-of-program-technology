@@ -336,4 +336,16 @@ public class MathLangVisitor extends MathLangBaseVisitor<Variable> {
             return base;
         }
     }
+
+    @Override
+    public Variable visitModuleExpression(MathLangParser.ModuleExpressionContext ctx) {
+        Variable v = visit(ctx.expression());
+        if (v.getValueType().equals(Double.class)) {
+            return new Variable(-(Double) v.getValue());
+        } else if (v.getValueType().equals(Matrix.class)) {
+            return new Variable(((Matrix) v.getValue()).module());
+        } else {
+            throw new ParseCancellationException("MODULE cannot be applied to object of type " + v.getValueType().getSimpleName());
+        }
+    }
 }

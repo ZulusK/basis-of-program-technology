@@ -339,4 +339,15 @@ public class Matrix {
         if (A == null || B == null) throw new IllegalArgumentException("zulus.lab1.Matrix must be not-null value");
         return A.add(B.multiply(k)).determinant();
     }
+
+    public Matrix module() {
+        double[][] newData = new double[getRows()][getColumns()];
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                newData[i][j] = Math.abs(_data[i][j]);
+            }
+        }
+        return new Matrix(newData);
+
+    }
 }
