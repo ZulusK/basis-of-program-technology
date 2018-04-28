@@ -69,7 +69,7 @@ Examples:
 |M1x1+M1x1|Matrix 1x1\n[2.0]|
 |M1x1+3|ERROR. SUM cannot be applied to operands of type Matrix and Double|
 |M2x2+M2x2|Matrix 2x2\n[2.0, 4.0]\n[6.0, 8.0]|
-|M2x2+Array|ERROR. SUM cannot be applied to operands of type Matrix and List|
+|M2x2+Array|ERROR. SUM cannot be applied to operands of type Matrix and ArrayList|
 |M1x1*2|Matrix 1x1\n[2.0]|
 |M1x1*M1x1|ERROR. Multiplication of matrix is not supported yet|
 |M2x2*4|Matrix 2x2\n[4.0, 8.0]\n[12.0, 16.0]|
@@ -79,7 +79,7 @@ Examples:
 |M1x1/2|Matrix 1x1\n[0.5]|
 |M2x2/5|Matrix 2x2\n[0.2, 0.4]\n[0.6000000000000001, 0.8]|
 |M2x2/M1x1|ERROR. Division of matrix is not supported|
-|M2x2/Array|ERROR. DIV cannot be applied to operands of type Matrix and List|
+|M2x2/Array|ERROR. DIV cannot be applied to operands of type Matrix and ArrayList|
 
 Scenario: user execute DIV, MULT, POW, SUBTRACT, SUM for lists
 
@@ -92,15 +92,15 @@ Then I receive <result>
 
 Examples:
 |command|result|
-|A3+2|ERROR. SUM cannot be applied to operands of type List and Double|
-|A3+Matrix|ERROR. SUM cannot be applied to operands of type List and Matrix|
-|A3+A3|ERROR. SUM cannot be applied to operands of type List and List|
-|A3-2|ERROR. SUBTRACT cannot be applied to operands of type List and Double|
-|A3-Matrix|ERROR. SUBTRACT cannot be applied to operands of type List and Matrix|
-|A3-A3|ERROR. SUBTRACT cannot be applied to operands of type List and List|
+|A3+2|ERROR. SUM cannot be applied to operands of type ArrayList and Double|
+|A3+Matrix|ERROR. SUM cannot be applied to operands of type ArrayList and Matrix|
+|A3+A3|ERROR. SUM cannot be applied to operands of type ArrayList and ArrayList|
+|A3-2|ERROR. SUBTRACT cannot be applied to operands of type ArrayList and Double|
+|A3-Matrix|ERROR. SUBTRACT cannot be applied to operands of type ArrayList and Matrix|
+|A3-A3|ERROR. SUBTRACT cannot be applied to operands of type ArrayList and ArrayList|
 |A3*3|[3.0, 6.0, 9.0]|
 |A3*A3|ERROR. Multiplication of arrays is not supported yet|
-|A3*Matrix|ERROR. MULT cannot be applied to operands of type Matrix and List|
+|A3*Matrix|ERROR. MULT cannot be applied to operands of type Matrix and ArrayList|
 |A3/5|[0.2, 0.4, 0.6000000000000001]|
 |A3/A3|ERROR. Division of arrays is not allowed|
-|A3/Matrix|ERROR. DIV cannot be applied to operands of type List and Matrix|
+|A3/Matrix|ERROR. DIV cannot be applied to operands of type ArrayList and Matrix|
